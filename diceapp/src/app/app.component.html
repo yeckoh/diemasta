@@ -1,0 +1,223 @@
+
+<mat-sidenav-container style='height: 100vh;'>
+
+  <mat-sidenav #drawer mode="side" closed fixedInViewport='true'>
+  <mat-nav-list style='max-width: 12rem;' [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#777777' : ldata.colors[ldata.selected_color]}">
+    <p style='width: inherit; text-align: center; font-size: 32px; height: 76px; margin: 0px;' (click)='drawer.opened =!drawer.opened'>Hotbar</p>
+    <mat-divider></mat-divider>
+    <div [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#777777' : ldata.colors[ldata.selected_color]}">
+    <mat-list-item [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#777777' : ldata.colors[ldata.selected_color]}"><input matInput [(ngModel)]='ldata.quickslots[0]' placeholder='Quickslot 0'>
+      <button mat-button (click)='ldata.textinput = ldata.quickslots[0]; ldata.newroll()'><mat-icon>accessible_forward</mat-icon></button></mat-list-item>
+    <mat-list-item [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#777777' : ldata.colors[ldata.selected_color]}"><input matInput [(ngModel)]='ldata.quickslots[1]' placeholder='Quickslot 1'>
+      <button mat-button (click)='ldata.textinput = ldata.quickslots[1]; ldata.newroll()'><mat-icon>accessible_forward</mat-icon></button></mat-list-item>
+    <mat-list-item [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#777777' : ldata.colors[ldata.selected_color]}"><input matInput [(ngModel)]='ldata.quickslots[2]' placeholder='Quickslot 2'>
+      <button mat-button (click)='ldata.textinput = ldata.quickslots[2]; ldata.newroll()'><mat-icon>accessible_forward</mat-icon></button></mat-list-item>
+    <mat-list-item [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#777777' : ldata.colors[ldata.selected_color]}"><input matInput [(ngModel)]='ldata.quickslots[3]' placeholder='Quickslot 3'>
+      <button mat-button (click)='ldata.textinput = ldata.quickslots[3]; ldata.newroll()'><mat-icon>accessible_forward</mat-icon></button></mat-list-item>
+    <mat-list-item [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#777777' : ldata.colors[ldata.selected_color]}"><input matInput [(ngModel)]='ldata.quickslots[4]' placeholder='Quickslot 4'>
+      <button mat-button (click)='ldata.textinput = ldata.quickslots[4]; ldata.newroll()'><mat-icon>accessible_forward</mat-icon></button></mat-list-item>
+    <mat-list-item [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#777777' : ldata.colors[ldata.selected_color]}"><input matInput [(ngModel)]='ldata.quickslots[5]' placeholder='Quickslot 5'>
+      <button mat-button (click)='ldata.textinput = ldata.quickslots[5]; ldata.newroll()'><mat-icon>accessible_forward</mat-icon></button></mat-list-item>
+    <mat-list-item [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#777777' : ldata.colors[ldata.selected_color]}"><input matInput [(ngModel)]='ldata.quickslots[6]' placeholder='Quickslot 6'>
+      <button mat-button (click)='ldata.textinput = ldata.quickslots[6]; ldata.newroll()'><mat-icon>accessible_forward</mat-icon></button></mat-list-item>
+    <mat-list-item [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#777777' : ldata.colors[ldata.selected_color]}"><input matInput [(ngModel)]='ldata.quickslots[7]' placeholder='Quickslot 7'>
+      <button mat-button (click)='ldata.textinput = ldata.quickslots[7]; ldata.newroll()'><mat-icon>accessible_forward</mat-icon></button></mat-list-item>
+    </div>
+    <mat-divider></mat-divider>
+    <p style='width: inherit; text-align: center; font-size: 24px; height: 40px; margin: 0px;'>Connections</p>
+    <mat-list-item *ngFor="let person of ldata.people">
+      <p [ngStyle]="{'color':(ldata.colors[person.color] === 'black') ? '#777777' : ldata.colors[person.color]}">{{person.name}}</p>
+    </mat-list-item>
+  </mat-nav-list>
+  </mat-sidenav>
+
+
+
+  <mat-sidenav-content style='position: fixed'>
+
+    <mat-tab-group>
+
+      <mat-tab label='Public rolls'>
+
+        <div class='toolbar mat-elevation-z4' style='width: 100vw;'>
+          <div [style.background-color]="ldata.colors[ldata.selected_color]" style='min-height: 84px;'>
+            <table>
+              <tr>
+                <td>
+                <button *ngIf="drawer.opened" mat-button (click)='drawer.opened=!drawer.opened'>
+                  <mat-icon>menu_open</mat-icon>
+                </button>
+              </td>
+              <td>
+                <button *ngIf="!drawer.opened" mat-button (click)='drawer.opened=!drawer.opened'>
+                  <mat-icon>last_page</mat-icon>
+                </button>
+              </td>
+              <td>
+                <mat-form-field>
+                  <input matInput style='font-size: 28px;' [(ngModel)]="ldata.current_user" placeholder='your name' (focus)='ldata.oldname = ldata.current_user' (change)='ldata.namechange()'>
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field>
+                  <mat-label>your color</mat-label>
+                  <mat-select [(value)]='ldata.selected_color' (selectionChange)='ldata.colorchange()'>
+                    <mat-option value=0 style='height: 100%; color:firebrick;'>firebrick</mat-option>
+                    <mat-option value=1 style='height: 100%; color:tomato;'>tomato</mat-option>
+                    <mat-option value=2 style='height: 100%; color:goldenrod;'>goldenrod</mat-option>
+                    <mat-option value=3 style='height: 100%; color:darkorange;'>darkorange</mat-option>
+                    <mat-option value=4 style='height: 100%; color:limegreen;'>limegreen</mat-option>
+                    <mat-option value=5 style='height: 100%; color:forestgreen;'>forestgreen</mat-option>
+                    <mat-option value=6 style='height: 100%; color:mediumseagreen;'>mediumseagreen</mat-option>
+                    <mat-option value=7 style='height: 100%; color:olivedrab;'>olivedrab</mat-option>
+                    <mat-option value=8 style='height: 100%; color:lightseagreen;'>lightseagreen</mat-option>
+                    <mat-option value=9 style='height: 100%; color:teal;'>teal</mat-option>
+                    <mat-option value=10 style='height: 100%; color:dodgerblue;'>dodgerblue</mat-option>
+                    <mat-option value=11 style='height: 100%; color:steelblue;'>steelblue</mat-option>
+                    <!-- <mat-option value=12 style='height: 100%; color:midnightblue;'>midnightblue</mat-option> -->
+                    <mat-option value=12 style='height: 100%; color:darkslateblue;'>darkslateblue</mat-option>
+                    <mat-option value=13 style='height: 100%; color:orchid;'>orchid</mat-option>
+                    <mat-option value=14 style='height: 100%; color:blueviolet;'>blueviolet</mat-option>
+                    <mat-option value=15 style='height: 100%; color:deeppink;'>deeppink</mat-option>
+                    <mat-option value=16 style='height: 100%; color:dimgray;'>dimgray</mat-option>
+                    <mat-option value=17 style='height: 100%; color:saddlebrown;'>saddlebrown</mat-option>
+                    <mat-option value=18 style='height: 100%; color:maroon;'>maroon</mat-option>
+                    <mat-option value=19 style='height: 100%; color:black;'>white</mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <!-- <mat-form-field>
+                  <input matInput [(ngModel)]="selected_color" placeholder='color'>
+                </mat-form-field> -->
+              </td>
+              <td>
+                <mat-checkbox (change)='ldata.expanddong = !ldata.expanddong' [checked]='ldata.expanddong'>sync expansions</mat-checkbox>
+              </td>
+              <td>
+                <button mat-button (click)='ldata.shrinkall()'
+                  matTooltip='collapse all statements'
+                  [matTooltipShowDelay]="400"
+                  [matTooltipHideDelay]="300">
+                  <mat-icon>sort</mat-icon>
+                </button>
+              </td>
+              <td>
+                <button mat-button (click)='ldata.updatelocalstorage()'
+                  matTooltip='manually save your profile settings'
+                  [matTooltipShowDelay]="400"
+                  [matTooltipHideDelay]="300">
+                  <mat-icon>save</mat-icon>
+                </button>
+              </td>
+            </tr>
+            </table>
+          </div>
+
+          <div style='background-color: #181818; z-index: 100;' [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#777777' : ldata.colors[ldata.selected_color]}">
+            <table>
+              <tr>
+                <td>
+              <mat-form-field style='padding-left: 1rem;'>
+                <input matInput placeholder='statement' [(ngModel)]="ldata.textinput"
+                (keydown.enter)='ldata.onEnterKey()'>
+                <!-- (keydown.arrowleft)='onLeftKey()'
+                (keydown.arrowright)='onRightKey()'
+                (keydown.arrowup)='onUpKey()'
+                (keydown.arrowdown)='onDownKey()'>
+       -->
+              </mat-form-field>
+                </td>
+                <td>
+                  <button mat-button *ngIf="ldata.textinput === ''" class='mat-elevation-z6' color='primary'>
+                    <mat-icon>accessible</mat-icon>
+                  </button>
+                  <button mat-button *ngIf="ldata.textinput !== ''" class='mat-elevation-z6' color='primary' (click)='ldata.newroll()'>
+                    <mat-icon>accessible_forward</mat-icon>
+                  </button>
+                </td>
+                <td style='padding-left: 6rem;'>
+                  <mat-checkbox (change)='ldata.CRIT = !ldata.CRIT'
+                    [checked]='ldata.CRIT'
+                    style='padding-right: 1rem;'
+                    matTooltip='roll as a critical'
+                    [matTooltipShowDelay]="400"
+                    [matTooltipHideDelay]="300">crit</mat-checkbox>
+                  <mat-checkbox (change)='ldata.EXPLOSION = !ldata.EXPLOSION'
+                    [disabled]='!ldata.CRIT'
+                    [checked]='ldata.EXPLOSION'
+                    style='padding-right: 1rem;'
+                    matTooltip='if the roll comes up as max, keep it & roll again for free'
+                    [matTooltipShowDelay]="400"
+                    [matTooltipHideDelay]="300">explosions</mat-checkbox>
+                  <mat-radio-group
+                    matTooltip='roll crits as x2 dice, or as maximum + normal roll'
+                    [matTooltipShowDelay]="400"
+                    [matTooltipHideDelay]="300">
+                    <mat-radio-button (change)='ldata.DOUBLES = true' value='0' [disabled]='!ldata.CRIT' [checked]='true' style='padding-right: 1rem;'>doubles</mat-radio-button>
+                    <mat-radio-button (change)='ldata.DOUBLES = false' value='1' [disabled]='!ldata.CRIT'>max+</mat-radio-button>
+                  </mat-radio-group
+                  >
+                </td>
+              </tr>
+            </table>
+          </div>
+
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <table>
+          <tr>
+            <td>
+              <app-rolls></app-rolls>
+            </td>
+            <td style='vertical-align: top;'>
+              <div>
+                <mat-form-field>
+                  <input matInput placeholder='quickmath' [(ngModel)]='ldata.quickmath'>
+                </mat-form-field>
+                <p>: {{ldata.evaluayt(ldata.quickmath) | number}}</p>
+              </div>
+            </td>
+          </tr>
+
+        </table>
+
+
+
+
+
+
+      </mat-tab>
+      <mat-tab label='Private rolls'>
+        <p>private roll component</p>
+      </mat-tab>
+
+      <mat-tab label='SpellPoints'>
+        <app-spellpoints></app-spellpoints>
+      </mat-tab>
+
+      <mat-tab label='FinalFantasyFlightDice'>
+        <app-storydice></app-storydice>
+      </mat-tab>
+
+      <mat-tab label='Initiative'>
+        <p>initiative component</p>
+      </mat-tab>
+
+    </mat-tab-group>
+
+</mat-sidenav-content>
+
+</mat-sidenav-container>

@@ -1,0 +1,171 @@
+<div>
+<mat-toolbar style='background-color: dodgerblue; width: 100vw;'>SpellPoints</mat-toolbar>
+  <!-- titletable -->
+  <table>
+    <tr>
+
+      <td>
+        <mat-form-field style='width: 19rem;'>
+          <mat-label>class</mat-label>
+          <mat-select [(value)]='ldata.selected_class' (selectionChange)='ldata.calcspellpoints()'>
+            <mat-option value='fullcast' style='height: 100%;'>Bard / Cleric / Druid</mat-option>
+            <mat-option value='sorc' style='height: 100%;'>Sorcerer</mat-option>
+            <mat-option value='wiz' style='height: 100%;'>Wizurd</mat-option>
+            <mat-option value='halfcast' style='height: 100%;'>Paladin / Ranger</mat-option>
+            <mat-option value='thirdcast' style='height: 100%;'>Eldritch knight, Arcane trickster</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </td>
+
+      <td>
+        <mat-form-field style='width: 5rem;'>
+          <mat-label>level</mat-label>
+          <mat-select [(value)]='ldata.lvl' [value]='1' (selectionChange)='ldata.calcspellpoints()'>
+            <mat-option value=1 style='height: 100%;'>Lv 1</mat-option>
+            <mat-option value=2 style='height: 100%;'>Lv 2</mat-option>
+            <mat-option value=3 style='height: 100%;'>Lv 3</mat-option>
+            <mat-option value=4 style='height: 100%;'>Lv 4</mat-option>
+            <mat-option value=5 style='height: 100%;'>Lv 5</mat-option>
+            <mat-option value=6 style='height: 100%;'>Lv 6</mat-option>
+            <mat-option value=7 style='height: 100%;'>Lv 7</mat-option>
+            <mat-option value=8 style='height: 100%;'>Lv 8</mat-option>
+            <mat-option value=9 style='height: 100%;'>Lv 9</mat-option>
+            <mat-option value=10 style='height: 100%;'>Lv 10</mat-option>
+            <mat-option value=11 style='height: 100%;'>Lv 11</mat-option>
+            <mat-option value=12 style='height: 100%;'>Lv 12</mat-option>
+            <mat-option value=13 style='height: 100%;'>Lv 13</mat-option>
+            <mat-option value=14 style='height: 100%;'>Lv 14</mat-option>
+            <mat-option value=15 style='height: 100%;'>Lv 15</mat-option>
+            <mat-option value=16 style='height: 100%;'>Lv 16</mat-option>
+            <mat-option value=17 style='height: 100%;'>Lv 17</mat-option>
+            <mat-option value=18 style='height: 100%;'>Lv 18</mat-option>
+            <mat-option value=19 style='height: 100%;'>Lv 19</mat-option>
+            <mat-option value=20 style='height: 100%;'>Lv 20</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <mat-checkbox (change)='ldata.showpercent = !ldata.showpercent' [checked]='true' style='padding-right: 1rem;'>show percentage</mat-checkbox>
+        <mat-checkbox (change)='ldata.overlimit = !ldata.overlimit' [checked]='false' style='padding-right: 1rem;'>overlimit</mat-checkbox>
+      </td>
+      <td *ngIf="ldata.selected_class === 'sorc'">
+        <mat-form-field>
+          <mat-label>sorceryPoint * lvl multiplier</mat-label>
+          <input matInput [(ngModel)]='ldata.sorcmulti' (change)='ldata.calcspellpoints()'>
+        </mat-form-field>
+      </td>
+    </tr>
+
+  </table>
+
+
+  <table>
+    <tr>
+      <td>
+        {{ldata.currentpoints}} / {{ldata.maxpoints}}
+      </td>
+      <td style='width: 20rem; position: relative'>
+        <!-- <mat-progress-bar style='position: absolute; top: 0; left: 0; z-index: 2; opacity: 33%;' color='accent' mode='determinate' [(value)]='ldata.currentpoints*200/ldata.maxpoints'></mat-progress-bar> -->
+        <mat-progress-bar mode='determinate' [(value)]='ldata.currentpoints*100/ldata.maxpoints'></mat-progress-bar>
+      </td>
+      <td style='width: 4rem; text-align: center;' *ngIf="ldata.showpercent">
+        {{ldata.currentpoints/ldata.maxpoints | percent:'1.0-2'}}
+      </td>
+    </tr>
+    <!-- <tr>
+      <td>
+        <mat-progress-spinner mode='determinate' [(value)]='ldata.currentpoints*100/ldata.maxpoints'></mat-progress-spinner>
+      </td>
+    </tr> -->
+  </table>
+
+  <table>
+    <tr>
+
+      <td>
+        <mat-selection-list [multiple]='false' style='width: 14rem;'>
+          <mat-list-option *ngIf="ldata.maxspell >= 1 && ldata.currentpoints >= 2">
+            1st
+          </mat-list-option>
+          <mat-list-option *ngIf="ldata.maxspell >= 2 && ldata.currentpoints >= 3">
+            2nd
+          </mat-list-option>
+          <mat-list-option *ngIf="ldata.maxspell >= 3 && ldata.currentpoints >= 5">
+            3rd
+          </mat-list-option>
+          <mat-list-option *ngIf="ldata.maxspell >= 4 && ldata.currentpoints >= 6">
+            4th
+          </mat-list-option>
+          <mat-list-option *ngIf="ldata.maxspell >= 5 && ldata.currentpoints >= 7">
+            5th
+          </mat-list-option>
+          <mat-list-option *ngIf="ldata.maxspell >= 6 && ldata.currentpoints >= 9">
+            6th
+          </mat-list-option>
+          <mat-list-option *ngIf="ldata.maxspell >= 7 && ldata.currentpoints >= 10">
+            7th
+          </mat-list-option>
+          <mat-list-option *ngIf="ldata.maxspell >= 8 && ldata.currentpoints >= 11">
+            8th
+          </mat-list-option>
+          <mat-list-option *ngIf="ldata.maxspell >= 9 && ldata.currentpoints >= 13">
+            9th
+          </mat-list-option>
+        </mat-selection-list>
+      </td>
+
+
+      <td>
+  <mat-selection-list style='width: 10rem;'>
+    <mat-list-option>
+      careful
+    </mat-list-option>
+    <mat-list-option>
+      distant
+    </mat-list-option>
+    <mat-list-option>
+      extendo
+    </mat-list-option>
+    <mat-list-option>
+      heighten
+    </mat-list-option>
+    <mat-list-option>
+      quicken
+    </mat-list-option>
+    <mat-list-option>
+      subtle
+    </mat-list-option>
+    <mat-list-option>
+      twin
+    </mat-list-option>
+    <mat-list-option>
+      empower
+    </mat-list-option>
+  </mat-selection-list>
+
+  </td>
+    </tr>
+  </table>
+
+  <!-- <p>calcd lvl {{ldata.calclvl}}</p> -->
+<br>
+<br>
+<mat-divider></mat-divider>
+<br>
+<mat-form-field style='width: 12rem;'><input matInput placeholder='manually ± points' [(ngModel)]='ldata.manualaddsubtract'></mat-form-field><button mat-button (click)='ldata.addsubtractpoints()'><mat-icon>accessible</mat-icon></button>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>

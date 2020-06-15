@@ -1,0 +1,46 @@
+<div style='max-height:100vh;'>
+<table style='max-width: 50rem; min-width: 30rem;'>
+  <tr>
+  <td>
+    <div>
+      <mat-nav-list>
+        <div *ngFor="let item of ldata.things; index as i" style='max-width: 30rem;'>
+          <div style='display:flex;'>
+            <mat-list-item class='mat-elevation-z3' [ngStyle]="{'color':(item.color==='black') ? '#FFFFFF' : item.color}" (click)='item.expand = !item.expand; ldata.expandroll(item);'>
+              <p matLine>{{i}}: {{item.owner}}</p>
+              <p style='font-size: 18px; font-weight: bold;'>{{item.result | number}}</p>
+              <p matLine>{{item.str}}</p>
+              <!-- <mat-icon *ngIf="i === selected_index">check</mat-icon> -->
+              <mat-icon *ngIf="item.crit" style='padding-left: 1rem;'>star_outline</mat-icon>
+
+            </mat-list-item>
+            <button mat-button class='mat-elevation-z3 noclip' style='color: green;' (click)='ldata.textinput=item.str;ldata.newroll()'
+              matTooltip='copy statement and roll again with your settings'
+              [matTooltipShowDelay]="400"
+              [matTooltipHideDelay]="300">
+              <mat-icon>refresh</mat-icon>
+            </button>
+            <button mat-button color='warn' class='mat-elevation-z3 noclip' (click)='ldata.deleteroll(item)'>
+              <mat-icon>delete_outline</mat-icon>
+            </button>
+          </div>
+
+          <div *ngIf="item.expand" class='mat-elevation-z3' [ngStyle]="{'color':(item.color==='black') ? '#FFFFFF' : item.color}">
+            <table *ngIf="item.crit"><tr>
+              <td><mat-checkbox [disabled]=true [checked]='item.explosions'>explosions</mat-checkbox></td>
+              <td><mat-radio-button [disabled]=true [checked]='item.doubles'>doubles</mat-radio-button></td>
+              <td><mat-radio-button [disabled]=true [checked]='!item.doubles'>max+</mat-radio-button></td></tr>
+            </table>
+            <p style='font-weight: bold;' *ngIf="item.mod > 0">{{item.result - item.mod}} + {{item.mod}}</p>
+            <p style='font-weight: bold;' *ngIf="item.mod < 0">{{item.result - item.mod}} {{item.mod}}</p>
+            <p style='font-weight: bold;'>½ ∎ {{item.result/2 | number}}</p>
+            <mat-divider></mat-divider>
+            <p *ngFor="let item of item.rollhistory">{{item}}</p>
+          </div>
+        </div>
+      </mat-nav-list>
+    </div>
+  </td>
+  </tr>
+</table>
+</div>

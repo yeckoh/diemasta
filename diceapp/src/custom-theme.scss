@@ -1,0 +1,100 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+
+$mat-mine: (
+  50: #dbefff,
+  100: #b7d6ea,
+  200: #97b9d0,
+  300: #749cb6,
+  400: #5a86a3,
+  500: #3e7290,
+  600: #31637f,
+  700: #225069,
+  800: #143e54,
+  900: #00293c,
+  A100: #edc7b0,
+  A200: #d0a48d,
+  A400: #9b694c,
+  A700: #693b22,
+  contrast: (
+    50: $black-87-opacity,
+    100: $black-87-opacity,
+    200: $black-87-opacity,
+    300: $black-87-opacity,
+    400: $black-87-opacity,
+    500: white,
+    600: white,
+    700: white,
+    800: $white-87-opacity,
+    900: $white-87-opacity,
+    A100: $black-87-opacity,
+    A200: white,
+    A400: white,
+    A700: white,
+  )
+);
+
+//$material-primary: mat-palette($mat-blue, 800);
+//$material-accent: mat-palette($mat-grey, 500);
+
+// The warn palette is optional (defaults to red).
+$material-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+//$material-theme: mat-dark-theme($material-primary, $material-accent, $material-warn);
+
+
+// which $palette, default, lighter, darker
+$my-primary: mat-palette($mat-mine, 500, 300, 800);
+$my-accent: mat-palette($mat-mine, A400, A200, A700);
+$my-warn: mat-palette($mat-red);
+
+$my-dark-theme-background: (
+  status-bar: black,
+  app-bar:    #181818,
+  background: #181818,
+  hover:      rgba(white, 0.04), // TODO(kara): check style with Material Design UX
+  card:       #272727,
+  dialog:     #212121,
+  disabled-button: rgba(white, 0.12),
+  raised-button: map-get($mat-grey, 800),
+  focused-button: $light-focused,
+  selected-button: map_get($mat-grey, 900),
+  selected-disabled-button: #272727,
+  disabled-button-toggle: black,
+  unselected-chip: map_get($mat-grey, 700),
+  disabled-list-option: black,
+);
+
+// same as mat-dark-theme except the background
+@function my-dark-theme($primary, $accent, $warn: mat-palette($mat-red)) {
+  @return (
+    primary: $primary,
+    accent: $accent,
+    warn: $warn,
+    is-dark: true,
+    foreground: $mat-dark-theme-foreground,
+    background: $my-dark-theme-background,
+  );
+}
+
+$my-material-theme: my-dark-theme($my-primary, $my-accent, $my-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+//@include angular-material-theme($material-theme);
+@include angular-material-theme($my-material-theme);
+

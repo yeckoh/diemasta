@@ -1,0 +1,29 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* html, body { height: 100%; } */
+body { background-color: #181818; margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; color: #ffffff; }
+/*p{ color: #ffffff;}*/
+span {font-size: larger; height:50%; }
+
+/* Angular doesnt let u use all the colors in the palette according to stackoverflow; reeeeeeeeeeee */
+/* we can concat classes so: class='mat-display-1 p400' will apply the mat-display and also p400's color */
+.p50 {color: #dbefff; }
+.p100 {color: #b7d6ea; }
+.p200 {color: #97b9d0; }
+.p300 {color: #749cb6; }
+.p400 {color: #5a86a3; }
+.p500 {color: #3e7290; }
+.p600 {color: #31637f; }
+.p700 {color: #225069; }
+.p800 {color: #143e54; }
+.p900 {color: #00293c; }
+
+.a100 {color: #edc7b0; }
+.a200 {color: #d0a48d; }
+.a400 {color: #9b694c; }
+.a700 {color: #693b22; }
+
+
+.mat-select-panel {
+  max-height: 80vh !important;
+}
