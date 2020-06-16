@@ -65,8 +65,14 @@ export class LocaldataService {
   people: person[] = [];
   oldname: string;
 
-  quickmath: string = '2+2';
+  quickmath: string = '2+2/3.57';
 
+  displaygroups = [];
+
+  updateDisplayGroups() {
+    const entrystr = '+'.concat(this.textinput);
+    this.displaygroups = entrystr.match(this.myReg);
+  }
 
   evaluayt() {
     let ddd;
@@ -123,7 +129,7 @@ export class LocaldataService {
         console.log('thirdcast calclvl ', this.calclvl);
         break;
       default:
-      console.log('oof!');
+      console.log('Oof!');
     }
 
     this.calclvl = Math.floor(this.calclvl);
@@ -157,7 +163,6 @@ export class LocaldataService {
   //  SPELLPOINTS =============================
   // ==========================================
 
-
   @HostListener('window:beforeunload', ['$event']) unloadHandler(event: Event) {
     this.updatelocalstorage();
     this.ws.sendback('Remove_person', this.current_user);
@@ -165,7 +170,6 @@ export class LocaldataService {
 
 
   namechange() {
-    // this.people[this.people.findIndex(s => s === this.oldname)] = this.current_user;
     const pp = {
       old: this.oldname,
       new: this.current_user
@@ -271,9 +275,6 @@ export class LocaldataService {
 
   rollme() {
 
-    this.separatedby_plusminus.length = 0;
-    this.plusminus_onlys.length = 0;
-
     const entry: Statement = this.things[0];
     entry.owner = this.current_user;
 
@@ -283,10 +284,18 @@ export class LocaldataService {
     entry.doubles = this.DOUBLES;
     entry.explosions = this.EXPLOSION;
 
-    // let myReg = RegExp('\\+\\d*d\\d+|\\-\\d*d\\d+', 'g');
     let diceReg = RegExp('\\d+', 'g');
     const entrystr = '+'.concat(entry.str);
     let split = entrystr.match(this.myReg);
+    
+    if (split === null) {
+      entry.str = 'Oof!';
+      entry.rollhistory[0] = ': NaN';
+      entry.result = Number.POSITIVE_INFINITY;
+      this.ws.sendback('Create_one_statement', entry);
+      return;
+    }
+
     let addendum = entrystr.split(this.myReg);
     let results = [];
     for (let i = 0;i < split.length;++i) {
@@ -297,115 +306,25 @@ export class LocaldataService {
       if (entry.crit && !entry.doubles)
         totalmod = +sidecount[0] * +sidecount[1];
 
-      // let sdgfnjuk = evaluate(this.calculate(+sidecount[0], +sidecount[1], entry) + totalmod + addendum[i+1] + '');
-      // console.log(sdgfnjuk);
-      // results.push(evaluate(this.calculate(+sidecount[0], +sidecount[1], entry) + totalmod + evaluate(0+addendum[i+1]) + ''));
-      // results.push(sdgfnjuk);
       totalmod += evaluate(0+addendum[i+1]);
       results.push(evaluate(this.calculate(+sidecount[0], +sidecount[1], entry) + totalmod + addendum[i+1] + ''));
       if (split[i].startsWith('-', 0))
         results[results.length-1] *= -1;
       if (addendum[i+1] !== '') {
-        entry.rollhistory[entry.rollhistory.length-2] += '\xa0\xa0∎ ' + addendum[i+1];
+        entry.rollhistory[entry.rollhistory.length-2] += '\xa0\xa0' + addendum[i+1];
         if (totalmod >= 0)
           entry.rollhistory[entry.rollhistory.length-1] = '+' + totalmod + '\xa0\xa0' + entry.rollhistory[entry.rollhistory.length-1];
         else
         entry.rollhistory[entry.rollhistory.length-1] = totalmod + '\xa0\xa0' + entry.rollhistory[entry.rollhistory.length-1];
       }
     }
+
     results.forEach(e => {
       entry.result += +e;
     });
-
-
-    // return;
-    // this.separatedby_plusminus = entry.str.split(this.PLUSMINUS);
-    // this.plusminus_onlys.push('+');
-    // [...entry.str].forEach(c => {
-    //   if (c === '+' || c === '-') {
-    //     this.plusminus_onlys.push(c);
-    //   }
-    // });
-
-    // let tempmod = 0;
-    // let count = 1;
-    // let sides = 0;
-    // let timesN1 = false;
-    // let splitter = [];
-    // let value = 0;
-
-    // this.separatedby_plusminus.forEach(s => {
-    //   if (s.includes('d')) { // 5d6
-    //     if (tempmod !== 0) {
-    //       if (tempmod > 0) {
-    //         entry.rollhistory[entry.rollhistory.length - 1] += '\xa0\xa0' + '+' + tempmod;
-    //       } else {
-    //         entry.rollhistory[entry.rollhistory.length - 1] += '\xa0\xa0' + tempmod;
-    //       }
-    //     }
-    //     if (value !== 0) {
-    //       entry.rollhistory[entry.rollhistory.length - 1] += '\xa0\xa0\xa0\xa0∎ ' + (value + tempmod);
-    //     }
-    //     splitter = s.split('d'); // [5]d[6]
-    //     if (splitter[0] !== '') { // if [5]d
-    //       count = +splitter[0];
-    //     }
-    //     if (splitter[1] !== '') { // if d[6]
-    //       sides = +splitter[1];
-    //     }
-    //     if (this.CRIT) {
-    //       if (this.DOUBLES) {
-    //         count *= 2;
-    //       } else { // is max
-    //         entry.result += count * sides;
-    //       }
-    //     } // endof.crits
-
-    //     if (timesN1) {
-    //       tempmod *= -1;
-    //     }
-    //     // entry.result += tempmod;
-    //     entry.mod += tempmod; // replacement del if reverting
-
-    //     tempmod = 0;
-    //     value = this.calculate(count, sides, entry);
-    //     if (this.plusminus_onlys[0] === '-') {
-    //       timesN1 = true;
-    //       value *= -1;
-    //     } else {
-    //       timesN1 = false;
-    //     }
-    //     entry.result += value;
-    //     // endof. it was a d
-    //   } else { // 56
-    //     if (this.plusminus_onlys[0] === '-') {
-    //       tempmod -= +s;
-    //     } else {
-    //       tempmod += +s;
-    //     }
-    //   } // end.of it was a modifier
-    //   this.plusminus_onlys.shift();
-    // });
-    // if (timesN1) {
-    //   // entry.result -= tempmod;
-    //   entry.mod -= tempmod;
-    // } else {
-    //   // entry.result += tempmod;
-    //   entry.mod += tempmod;
-    // }
-
-    // if (tempmod !== 0) {
-    //   if (tempmod > 0) {
-    //     entry.rollhistory[entry.rollhistory.length - 1] += '\xa0\xa0' + '+' + tempmod;
-    //   } else {
-    //     entry.rollhistory[entry.rollhistory.length - 1] += '\xa0\xa0' + tempmod;
-    //   }
-    // }
-    // entry.rollhistory[entry.rollhistory.length - 1] += '\xa0\xa0\xa0\xa0∎ ' + (value + tempmod);
-
-    // entry.result += tempmod; // replaced del if reverting
-
-    // // console.log(entry);
+    console.log(entry.result);
+    if (isNaN(entry.result))
+      entry.result = Number.POSITIVE_INFINITY;
     this.ws.sendback('Create_one_statement', entry);
   }
 
@@ -413,8 +332,6 @@ export class LocaldataService {
 
   calculate(c: number, s: number, e: Statement) {
     let returnval = 0;
-    // console.log('calc count: ', c);
-    // console.log('calc sides: ', s);
     let poormansescape = 0;
 
     e.rollhistory.push(': ' + c + 'd' + s);
@@ -448,8 +365,6 @@ export class LocaldataService {
         returnval += roll;
       }
     }
-    // console.log('calc result: ', returnval);
-    // e.rollhistory[e.rollhistory.length - 1] += '\xa0\xa0\xa0\xa0| ' + returnval + '\xa0\xa0\xa0\xa0½| ' + (returnval / 2);
     return returnval;
   }
 

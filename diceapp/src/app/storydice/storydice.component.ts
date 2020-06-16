@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LocaldataService } from '../services/localdata.service';
+import { WsService } from '../services/ws.service';
 
 @Component({
   selector: 'app-storydice',
@@ -8,7 +9,7 @@ import { LocaldataService } from '../services/localdata.service';
 })
 export class StorydiceComponent implements OnInit {
 
-  constructor(protected ldata: LocaldataService) { }
+  constructor(protected ldata: LocaldataService, ws : WsService) { }
 
   // tslint:disable: class-name
   // tslint:disable: variable-name
@@ -29,28 +30,32 @@ export class StorydiceComponent implements OnInit {
   r_despair = 0;
 
   // difficulty
-  d_difficulty = 10; // purple d8
-  d_challenge = 10; // red d12
+  d_difficulty = 3; // purple d8
+  d_challenge = 1; // red d12
 
   // player attempt
-  d_ability = 10; // green d8
-  d_prof = 10; // yellow d12
+  d_ability = 2; // green d8
+  d_prof = 1; // yellow d12
 
   // circumstantial
-  d_boost = 10; // white d6
-  d_setback = 10; // black d6
+  d_boost = 0; // white d6
+  d_setback = 0; // black d6
 
 
   difficulty = [0, 1, 2, 3, 4, 5];
 
+  // subscriptions
+  // ondestroy
 
   ngOnInit(): void {
+    // subscriptions =
+    // subscriptions.add
   }
 
 
   // difficulty
   rolldifficulty() {
-    if (this.d_difficulty === 0)
+    if (this.d_difficulty <= 0)
       return;
     let roll = 0;
 
@@ -82,7 +87,7 @@ export class StorydiceComponent implements OnInit {
   }
 
   rollchallenge() {
-    if (this.d_challenge === 0)
+    if (this.d_challenge <= 0)
       return;
     let roll = 0;
 
@@ -122,7 +127,7 @@ export class StorydiceComponent implements OnInit {
 
   // player attempt
   rollability() {
-    if (this.d_ability === 0)
+    if (this.d_ability <= 0)
       return;
     let roll = 0;
 
@@ -154,7 +159,7 @@ export class StorydiceComponent implements OnInit {
   }
 
   rollprof() {
-    if (this.d_prof === 0)
+    if (this.d_prof <= 0)
       return;
     let roll = 0;
 
@@ -197,7 +202,7 @@ export class StorydiceComponent implements OnInit {
 
   // circumstantial
   rollboost() {
-    if (this.d_boost === 0)
+    if (this.d_boost <= 0)
       return;
     let roll = 0;
 
@@ -228,7 +233,7 @@ export class StorydiceComponent implements OnInit {
   // ++this.r_threat;
 
   rollsetback() {
-    if (this.d_setback === 0)
+    if (this.d_setback <= 0)
       return;
     let roll = 0;
 

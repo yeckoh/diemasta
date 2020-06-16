@@ -119,7 +119,7 @@
                 <td>
               <mat-form-field style='padding-left: 1rem;'>
                 <input matInput placeholder='statement' [(ngModel)]="ldata.textinput"
-                (keydown.enter)='ldata.onEnterKey()'>
+                (keydown.enter)='ldata.onEnterKey()' (input)='ldata.updateDisplayGroups()'>
                 <!-- (keydown.arrowleft)='onLeftKey()'
                 (keydown.arrowright)='onRightKey()'
                 (keydown.arrowup)='onUpKey()'
@@ -160,6 +160,13 @@
                 </td>
               </tr>
             </table>
+            <table>
+              <tr>
+                <td *ngFor='let item of ldata.displaygroups'>
+                  {{item}}...
+                </td>
+              </tr>
+            </table>
           </div>
 
       </div>
@@ -184,6 +191,7 @@
             </td>
             <td style='vertical-align: top;'>
               <div>
+                <br>
                 <mat-form-field>
                   <input matInput placeholder='quickmath' [(ngModel)]='ldata.quickmath'>
                 </mat-form-field>

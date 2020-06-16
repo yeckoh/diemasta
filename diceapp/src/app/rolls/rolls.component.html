@@ -8,7 +8,7 @@
           <div style='display:flex;'>
             <mat-list-item class='mat-elevation-z3' [ngStyle]="{'color':(item.color==='black') ? '#FFFFFF' : item.color}" (click)='item.expand = !item.expand; ldata.expandroll(item);'>
               <p matLine>{{i}}: {{item.owner}}</p>
-              <p style='font-size: 18px; font-weight: bold;'>{{item.result | number}}</p>
+              <p style='font-size: 18px; font-weight: bold;'><ng-temmplate *ngIf='item.result !== null; else infinitay'>{{item.result | number}}</ng-temmplate><ng-template #infinitay>∞</ng-template></p>
               <p matLine>{{item.str}}</p>
               <!-- <mat-icon *ngIf="i === selected_index">check</mat-icon> -->
               <mat-icon *ngIf="item.crit" style='padding-left: 1rem;'>star_outline</mat-icon>
@@ -32,7 +32,7 @@
               <td><mat-radio-button [disabled]=true [checked]='!item.doubles'>max+</mat-radio-button></td></tr>
             </table>
             <p style='font-weight: bold;' *ngIf="item.mod > 0">{{item.result - item.mod}} + {{item.mod}}</p>
-            <p style='font-weight: bold;' *ngIf="item.mod < 0">{{item.result - item.mod}} {{item.mod}}</p>
+            <p style='font-weight: bold;' *ngIf="item.mod < 0">{{item.result + item.mod}} {{item.mod}}</p>
             <p style='font-weight: bold;'>½ ∎ {{item.result/2 | number}}</p>
             <mat-divider></mat-divider>
             <p *ngFor="let item of item.rollhistory">{{item}}</p>
