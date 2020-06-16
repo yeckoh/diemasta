@@ -1,9 +1,9 @@
 <div>
-<mat-toolbar style='background-color: dodgerblue; width: 100vw;'>SpellPoints</mat-toolbar>
+<mat-toolbar style='width: 100vw;' [style.background-color]="ldata.colors[ldata.selected_color]">{{ldata.current_user}}'s SpellPoints</mat-toolbar>
   <!-- titletable -->
+  <div class='mat-elevation-z4' style='width: 100vw;'>
   <table>
     <tr>
-
       <td>
         <mat-form-field style='width: 19rem;'>
           <mat-label>class</mat-label>
@@ -59,15 +59,14 @@
       </td>
     </tr>
 
-  </table>
-
-
-  <table>
     <tr>
       <td>
         {{ldata.currentpoints}} / {{ldata.maxpoints}}
       </td>
-      <td style='width: 20rem; position: relative'>
+    </tr>
+    
+    <tr>
+      <td style='width: 22rem;'>
         <!-- <mat-progress-bar style='position: absolute; top: 0; left: 0; z-index: 2; opacity: 33%;' color='accent' mode='determinate' [(value)]='ldata.currentpoints*200/ldata.maxpoints'></mat-progress-bar> -->
         <mat-progress-bar mode='determinate' [(value)]='ldata.currentpoints*100/ldata.maxpoints'></mat-progress-bar>
       </td>
@@ -80,44 +79,66 @@
         <mat-progress-spinner mode='determinate' [(value)]='ldata.currentpoints*100/ldata.maxpoints'></mat-progress-spinner>
       </td>
     </tr> -->
+    <tr><td>{{ldata.currentpoints}} -{{ldata.currentcost}} ⇀ {{ldata.currentpoints - ldata.currentcost}}</td></tr>
+
+    <tr><td><button mat-raised-button [style.background-color]="ldata.colors[ldata.selected_color]">cast</button></td></tr>
   </table>
+  </div>
 
-  <table>
+
+  <!-- <table class='mat-elevation-z4'>
+  </table> -->
+  <div style='display: flex;'>
+  <table class='mat-elevation-z4'>
     <tr>
-
       <td>
-        <mat-selection-list [multiple]='false' style='width: 14rem;'>
-          <mat-list-option *ngIf="ldata.maxspell >= 1 && ldata.currentpoints >= 2">
+        <mat-selection-list [multiple]='false' style='width: 14rem;' [(ngModel)]='ldata.currentcost'>
+          <mat-list-option value=0 *ngIf="ldata.maxspell >= 1 && ldata.currentpoints >= 0">
+            cantrip
+          </mat-list-option>
+          <mat-list-option value=2 *ngIf="ldata.maxspell >= 1 && ldata.currentpoints >= 2">
             1st
+            <label style='color: rgba(255, 255, 255, 0.333);'>casts left: {{ldata.currentpoints/2 | number:'1.0-0'}}</label>
           </mat-list-option>
-          <mat-list-option *ngIf="ldata.maxspell >= 2 && ldata.currentpoints >= 3">
+          <mat-list-option value=3 *ngIf="ldata.maxspell >= 2 && ldata.currentpoints >= 3">
             2nd
+            <label style='color: rgba(255, 255, 255, 0.333);'>casts left: {{ldata.currentpoints/3 | number:'1.0-0'}}</label>
           </mat-list-option>
-          <mat-list-option *ngIf="ldata.maxspell >= 3 && ldata.currentpoints >= 5">
+          <mat-list-option value=5 *ngIf="ldata.maxspell >= 3 && ldata.currentpoints >= 5">
             3rd
+            <label style='color: rgba(255, 255, 255, 0.333);'>casts left: {{ldata.currentpoints/5 | number:'1.0-0'}}</label>
           </mat-list-option>
-          <mat-list-option *ngIf="ldata.maxspell >= 4 && ldata.currentpoints >= 6">
+          <mat-list-option value=6 *ngIf="ldata.maxspell >= 4 && ldata.currentpoints >= 6">
             4th
+            <label style='color: rgba(255, 255, 255, 0.333);'>casts left: {{ldata.currentpoints/6 | number:'1.0-0'}}</label>
           </mat-list-option>
-          <mat-list-option *ngIf="ldata.maxspell >= 5 && ldata.currentpoints >= 7">
+          <mat-list-option value=7 *ngIf="ldata.maxspell >= 5 && ldata.currentpoints >= 7">
             5th
+            <label style='color: rgba(255, 255, 255, 0.333);'>casts left: {{ldata.currentpoints/7 | number:'1.0-0'}}</label>
           </mat-list-option>
-          <mat-list-option *ngIf="ldata.maxspell >= 6 && ldata.currentpoints >= 9">
+          <mat-list-option value=9 *ngIf="ldata.maxspell >= 6 && ldata.currentpoints >= 9">
             6th
+            <label style='color: rgba(255, 255, 255, 0.333);'>casts left: 1</label>
           </mat-list-option>
-          <mat-list-option *ngIf="ldata.maxspell >= 7 && ldata.currentpoints >= 10">
+          <mat-list-option value=10 *ngIf="ldata.maxspell >= 7 && ldata.currentpoints >= 10">
             7th
+            <label style='color: rgba(255, 255, 255, 0.333);'>casts left: 1</label>
           </mat-list-option>
-          <mat-list-option *ngIf="ldata.maxspell >= 8 && ldata.currentpoints >= 11">
+          <mat-list-option value=11 *ngIf="ldata.maxspell >= 8 && ldata.currentpoints >= 11">
             8th
+            <label style='color: rgba(255, 255, 255, 0.333);'>casts left: 1</label>
           </mat-list-option>
-          <mat-list-option *ngIf="ldata.maxspell >= 9 && ldata.currentpoints >= 13">
+          <mat-list-option value=13 *ngIf="ldata.maxspell >= 9 && ldata.currentpoints >= 13">
             9th
+            <label style='color: rgba(255, 255, 255, 0.333);'>casts left: 1</label>
           </mat-list-option>
         </mat-selection-list>
       </td>
+    </tr>
+  </table>
 
-
+  <table class='mat-elevation-z4'>
+    <tr>
       <td>
   <mat-selection-list style='width: 10rem;'>
     <mat-list-option>
@@ -149,6 +170,7 @@
   </td>
     </tr>
   </table>
+  </div>
 
   <!-- <p>calcd lvl {{ldata.calclvl}}</p> -->
 <br>

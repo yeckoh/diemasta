@@ -80,7 +80,7 @@ export class LocaldataService {
       ddd = evaluate(this.quickmath);
     }
     catch(SyntaxError) {
-      ddd = Number.NaN;
+      ddd = Number.POSITIVE_INFINITY;
     }
     finally {
       return ddd;
@@ -100,11 +100,12 @@ export class LocaldataService {
   currentpoints = 0;
   maxpoints = 0;
   dailies = [0, 0, 0, 0];
-  cost = [0, 2, 3, 5, 6, 7, 9, 10, 11, 13];
+  // cost = [0, 2, 3, 5, 6, 7, 9, 10, 11, 13];
   lvlToPoints = [0, 4, 6, 14, 17, 27, 32, 38, 44, 57, 64, 73, 73, 83, 83, 94, 94, 107, 114, 123, 133];
   reee = 0;
   manualaddsubtract = 0;
   maxspell = 0;
+  currentcost = 0;
 
   has_reeed: boolean = false;
   showpercent: boolean = true;
@@ -112,7 +113,7 @@ export class LocaldataService {
   sorcmulti = 2;
 
   calcspellpoints() {
-    console.log(this.selected_class);
+    // console.log(this.selected_class);
     switch(this.selected_class) {
       case 'fullcast': // fullcaster
       case 'sorc': // src
@@ -142,7 +143,7 @@ export class LocaldataService {
     if (this.maxspell >= 10) {
         this.maxspell = 9;
     }
-
+    this.currentpoints = this.maxpoints;
   }
 
 

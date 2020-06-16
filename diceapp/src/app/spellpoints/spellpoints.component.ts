@@ -13,4 +13,10 @@ export class SpellpointsComponent implements OnInit {
   ngOnInit() {
   }
 
+  cost = 0;
+  
+
+
+
+
 }
