@@ -1,4 +1,4 @@
-import { Injectable, HostListener } from '@angular/core';
+import { Injectable, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Statement } from '../models/statement.model';
 import { WsService } from '../services/ws.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -21,9 +21,16 @@ export interface person {
   // tslint:disable: member-ordering
 
 
-export class LocaldataService {
+export class LocaldataService implements OnDestroy, OnInit {
 
-  constructor(private ws: WsService, private alohasnackbar: MatSnackBar) { }
+  constructor(private ws: WsService, private alohasnackbar: MatSnackBar) {}
+  ngOnInit(): void {
+
+  }
+
+  ngOnDestroy(): void {
+
+  }
 
 
 
@@ -51,9 +58,9 @@ export class LocaldataService {
 
 
 
-  textinput = '';
+  statementinput = '';
   quickslots = ['', '', '', '', '', '', '', ''];
-  mytextinput = ''; // personal rolls tab
+  mystatementinput = ''; // personal rolls tab
   current_user = 'someone';
   expanddong = false;
   selected_index = 0; // for opening closing
@@ -70,7 +77,7 @@ export class LocaldataService {
   displaygroups = [];
 
   updateDisplayGroups() {
-    const entrystr = '+'.concat(this.textinput);
+    const entrystr = '+'.concat(this.statementinput);
     this.displaygroups = entrystr.match(this.myReg);
   }
 
@@ -87,6 +94,10 @@ export class LocaldataService {
     }
   }
 
+  testfunc() {
+    this.quickmath = '5+5';
+    this.evaluayt();
+  }
 
 
   // ==========================================
@@ -95,12 +106,17 @@ export class LocaldataService {
 
   // spellpoint vars
   selected_class = 'fullcast';
-  lvl = 0;
+  lvl: number = 0;
   calclvl = 0;
   currentpoints = 0;
   maxpoints = 0;
   dailies = [0, 0, 0, 0];
-  // cost = [0, 2, 3, 5, 6, 7, 9, 10, 11, 13];
+  // maxdailies = [1, 1, 1, 1];
+  max6th = 1;
+  max7th = 1;
+  max8th = 1;
+  max9th = 1;
+  cost = [0, 2, 3, 5, 6, 7, 9, 10, 11, 13];
   lvlToPoints = [0, 4, 6, 14, 17, 27, 32, 38, 44, 57, 64, 73, 73, 83, 83, 94, 94, 107, 114, 123, 133];
   reee = 0;
   manualaddsubtract = 0;
@@ -139,9 +155,20 @@ export class LocaldataService {
       this.maxpoints += this.lvl * this.sorcmulti;
     }
 
-    this.maxspell = (this.calclvl + 1) / 2;
+    this.maxspell = Math.floor((this.calclvl + 1) / 2);
     if (this.maxspell >= 10) {
         this.maxspell = 9;
+    }
+    this.dailies = [0, 0, 0, 0];
+    switch (this.maxspell) {
+      case 9:
+        this.dailies[3] = this.max9th;
+      case 8:
+        this.dailies[2] = this.max8th;
+      case 7:
+        this.dailies[1] = this.max7th;
+      case 6:
+        this.dailies[0] = this.max6th;
     }
     this.currentpoints = this.maxpoints;
   }
@@ -188,7 +215,7 @@ export class LocaldataService {
 
   updatelocalstorage() {
     const settings = {
-      textinput: this.textinput,
+      statementinput: this.statementinput,
       quickslots: this.quickslots,
       current_user: this.current_user,
       selected_color: this.selected_color,
@@ -198,6 +225,26 @@ export class LocaldataService {
       EXPLOSION: this.EXPLOSION
     };
     localStorage.setItem('settings', JSON.stringify(settings));
+
+    const spellpoints = {
+      selected_class: this.selected_class,
+      lvl: this.lvl as number,
+      calclvl: this.calclvl,
+      currentpoints: this.currentpoints,
+      maxpoints: this.maxpoints,
+      dailies: this.dailies,
+      reee: this.reee,
+      manualaddsubtract: this.manualaddsubtract,
+      maxspell: this.maxspell,
+      currentcost: 0,
+    
+      has_reeed: this.has_reeed,
+      showpercent: this.showpercent,
+      overlimit: this.overlimit,
+      sorcmulti: this.sorcmulti,
+      maxdailies: [this.max6th, this.max7th, this.max8th, this.max9th]
+    };
+    localStorage.setItem('spellpoints', JSON.stringify(spellpoints));
   }
 
   shrinkall() {
@@ -229,11 +276,11 @@ export class LocaldataService {
   // ==========================================
 
   onEnterKey() { // roll statement
-    // if (this.textinput !== '') {
+    // if (this.statementinput !== '') {
     //   this.newroll();
     // }
-    // this.textinput = this.things[this.selected_index].str;
-    if (this.textinput !== '') {
+    // this.statementinput = this.things[this.selected_index].str;
+    if (this.statementinput !== '') {
       this.newroll();
       this.onDownKey();
     }
@@ -270,7 +317,7 @@ export class LocaldataService {
   // ==========================================
 
   newroll() {
-    this.things.unshift(new Statement(this.textinput));
+    this.things.unshift(new Statement(this.statementinput));
     this.rollme();
   }
 

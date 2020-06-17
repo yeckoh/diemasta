@@ -7,21 +7,21 @@
     <mat-divider></mat-divider>
     <div [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#777777' : ldata.colors[ldata.selected_color]}">
     <mat-list-item [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#777777' : ldata.colors[ldata.selected_color]}"><input matInput [(ngModel)]='ldata.quickslots[0]' placeholder='Quickslot 0'>
-      <button mat-button (click)='ldata.textinput = ldata.quickslots[0]; ldata.newroll()'><mat-icon>accessible_forward</mat-icon></button></mat-list-item>
+      <button mat-button (click)='ldata.statementinput = ldata.quickslots[0]; ldata.newroll()'><mat-icon>accessible_forward</mat-icon></button></mat-list-item>
     <mat-list-item [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#777777' : ldata.colors[ldata.selected_color]}"><input matInput [(ngModel)]='ldata.quickslots[1]' placeholder='Quickslot 1'>
-      <button mat-button (click)='ldata.textinput = ldata.quickslots[1]; ldata.newroll()'><mat-icon>accessible_forward</mat-icon></button></mat-list-item>
+      <button mat-button (click)='ldata.statementinput = ldata.quickslots[1]; ldata.newroll()'><mat-icon>accessible_forward</mat-icon></button></mat-list-item>
     <mat-list-item [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#777777' : ldata.colors[ldata.selected_color]}"><input matInput [(ngModel)]='ldata.quickslots[2]' placeholder='Quickslot 2'>
-      <button mat-button (click)='ldata.textinput = ldata.quickslots[2]; ldata.newroll()'><mat-icon>accessible_forward</mat-icon></button></mat-list-item>
+      <button mat-button (click)='ldata.statementinput = ldata.quickslots[2]; ldata.newroll()'><mat-icon>accessible_forward</mat-icon></button></mat-list-item>
     <mat-list-item [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#777777' : ldata.colors[ldata.selected_color]}"><input matInput [(ngModel)]='ldata.quickslots[3]' placeholder='Quickslot 3'>
-      <button mat-button (click)='ldata.textinput = ldata.quickslots[3]; ldata.newroll()'><mat-icon>accessible_forward</mat-icon></button></mat-list-item>
+      <button mat-button (click)='ldata.statementinput = ldata.quickslots[3]; ldata.newroll()'><mat-icon>accessible_forward</mat-icon></button></mat-list-item>
     <mat-list-item [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#777777' : ldata.colors[ldata.selected_color]}"><input matInput [(ngModel)]='ldata.quickslots[4]' placeholder='Quickslot 4'>
-      <button mat-button (click)='ldata.textinput = ldata.quickslots[4]; ldata.newroll()'><mat-icon>accessible_forward</mat-icon></button></mat-list-item>
+      <button mat-button (click)='ldata.statementinput = ldata.quickslots[4]; ldata.newroll()'><mat-icon>accessible_forward</mat-icon></button></mat-list-item>
     <mat-list-item [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#777777' : ldata.colors[ldata.selected_color]}"><input matInput [(ngModel)]='ldata.quickslots[5]' placeholder='Quickslot 5'>
-      <button mat-button (click)='ldata.textinput = ldata.quickslots[5]; ldata.newroll()'><mat-icon>accessible_forward</mat-icon></button></mat-list-item>
+      <button mat-button (click)='ldata.statementinput = ldata.quickslots[5]; ldata.newroll()'><mat-icon>accessible_forward</mat-icon></button></mat-list-item>
     <mat-list-item [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#777777' : ldata.colors[ldata.selected_color]}"><input matInput [(ngModel)]='ldata.quickslots[6]' placeholder='Quickslot 6'>
-      <button mat-button (click)='ldata.textinput = ldata.quickslots[6]; ldata.newroll()'><mat-icon>accessible_forward</mat-icon></button></mat-list-item>
+      <button mat-button (click)='ldata.statementinput = ldata.quickslots[6]; ldata.newroll()'><mat-icon>accessible_forward</mat-icon></button></mat-list-item>
     <mat-list-item [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#777777' : ldata.colors[ldata.selected_color]}"><input matInput [(ngModel)]='ldata.quickslots[7]' placeholder='Quickslot 7'>
-      <button mat-button (click)='ldata.textinput = ldata.quickslots[7]; ldata.newroll()'><mat-icon>accessible_forward</mat-icon></button></mat-list-item>
+      <button mat-button (click)='ldata.statementinput = ldata.quickslots[7]; ldata.newroll()'><mat-icon>accessible_forward</mat-icon></button></mat-list-item>
     </div>
     <mat-divider></mat-divider>
     <p style='width: inherit; text-align: center; font-size: 24px; height: 40px; margin: 0px;'>Connections</p>
@@ -118,7 +118,7 @@
               <tr>
                 <td>
               <mat-form-field style='padding-left: 1rem;'>
-                <input matInput placeholder='statement' [(ngModel)]="ldata.textinput"
+                <input matInput placeholder='statement' [(ngModel)]="ldata.statementinput"
                 (keydown.enter)='ldata.onEnterKey()' (input)='ldata.updateDisplayGroups()'>
                 <!-- (keydown.arrowleft)='onLeftKey()'
                 (keydown.arrowright)='onRightKey()'
@@ -128,10 +128,10 @@
               </mat-form-field>
                 </td>
                 <td>
-                  <button mat-button *ngIf="ldata.textinput === ''" class='mat-elevation-z6' color='primary'>
+                  <button mat-button *ngIf="ldata.statementinput === ''" class='mat-elevation-z6' color='primary'>
                     <mat-icon>accessible</mat-icon>
                   </button>
-                  <button mat-button *ngIf="ldata.textinput !== ''" class='mat-elevation-z6' color='primary' (click)='ldata.newroll()'>
+                  <button mat-button *ngIf="ldata.statementinput !== ''" class='mat-elevation-z6' color='primary' (click)='ldata.newroll()'>
                     <mat-icon>accessible_forward</mat-icon>
                   </button>
                 </td>

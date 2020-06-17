@@ -20,7 +20,7 @@
       <td>
         <mat-form-field style='width: 5rem;'>
           <mat-label>level</mat-label>
-          <mat-select [(value)]='ldata.lvl' [value]='1' (selectionChange)='ldata.calcspellpoints()'>
+          <mat-select [(value)]='ldata.lvl' (selectionChange)='ldata.calcspellpoints()'>
             <mat-option value=1 style='height: 100%;'>Lv 1</mat-option>
             <mat-option value=2 style='height: 100%;'>Lv 2</mat-option>
             <mat-option value=3 style='height: 100%;'>Lv 3</mat-option>
@@ -48,20 +48,14 @@
 
     <tr>
       <td>
-        <mat-checkbox (change)='ldata.showpercent = !ldata.showpercent' [checked]='true' style='padding-right: 1rem;' class='lowalpha'>show percentage</mat-checkbox>
-        <mat-checkbox (change)='ldata.overlimit = !ldata.overlimit' [checked]='false' style='padding-right: 1rem;' class='lowalpha'>overlimit</mat-checkbox>
-      </td>
-      <td *ngIf="ldata.selected_class === 'sorc'">
-        <mat-form-field>
-          <mat-label>sorceryPoint * lvl multiplier</mat-label>
-          <input matInput [(ngModel)]='ldata.sorcmulti' (change)='ldata.calcspellpoints()'>
-        </mat-form-field>
+        <mat-checkbox (change)='ldata.showpercent = !ldata.showpercent' [checked]='ldata.showpercent' style='padding-right: 1rem;' class='lowalpha'>show percentage</mat-checkbox>
+        <mat-checkbox (change)='ldata.overlimit = !ldata.overlimit' [checked]='ldata.overlimit' style='padding-right: 1rem;' class='lowalpha'>overlimit</mat-checkbox>
       </td>
     </tr>
   </table>
   <table>
     <tr>
-      <td style='width: 6rem;'>
+      <td style='width: 7rem;'>
         {{ldata.currentpoints}} / {{ldata.maxpoints}}
       </td>
       <td style='width: 4rem; text-align: left;' *ngIf="ldata.showpercent" class='lowalpha'>
@@ -123,21 +117,21 @@
             5th
             <label class='lowalpha'>casts left: {{ldata.currentpoints/7 | number:'1.0-0'}}</label>
           </mat-list-option>
-          <mat-list-option value=9 *ngIf="ldata.maxspell >= 6 && ldata.currentpoints >= 9">
+          <mat-list-option value=9 *ngIf="ldata.dailies[0] && ldata.currentpoints >= 9">
             6th
-            <label class='lowalpha'>casts left: 1</label>
+            <label class='lowalpha'>casts left: {{ldata.dailies[0]}}</label>
           </mat-list-option>
-          <mat-list-option value=10 *ngIf="ldata.maxspell >= 7 && ldata.currentpoints >= 10">
+          <mat-list-option value=10 *ngIf="ldata.dailies[1] && ldata.currentpoints >= 10">
             7th
-            <label class='lowalpha'>casts left: 1</label>
+            <label class='lowalpha'>casts left: {{ldata.dailies[1]}}</label>
           </mat-list-option>
-          <mat-list-option value=11 *ngIf="ldata.maxspell >= 8 && ldata.currentpoints >= 11">
+          <mat-list-option value=11 *ngIf="ldata.dailies[2] && ldata.currentpoints >= 11">
             8th
-            <label class='lowalpha'>casts left: 1</label>
+            <label class='lowalpha'>casts left: {{ldata.dailies[2]}}</label>
           </mat-list-option>
-          <mat-list-option value=13 *ngIf="ldata.maxspell >= 9 && ldata.currentpoints >= 13">
+          <mat-list-option value=13 *ngIf="ldata.dailies[3] && ldata.currentpoints >= 13">
             9th
-            <label class='lowalpha'>casts left: 1</label>
+            <label class='lowalpha'>casts left: {{ldata.dailies[3]}}</label>
           </mat-list-option>
         </mat-selection-list>
       </td>
@@ -190,13 +184,47 @@
 
 
 <br>
-<br>
-<mat-divider></mat-divider>
-<br>
-<button mat-raised-button [style.background-color]="ldata.colors[ldata.selected_color]">reset</button>
+<button mat-raised-button [style.background-color]="ldata.colors[ldata.selected_color]">full recovery</button>
 <br>
 <br>
 <mat-form-field style='width: 12rem;'><input matInput placeholder='manually ± points' [(ngModel)]='ldata.manualaddsubtract'></mat-form-field><button mat-button (click)='ldata.addsubtractpoints()'><mat-icon>accessible</mat-icon></button>
-
+<br>
+<mat-divider></mat-divider>
+<br>
+<p class='lowalpha'>probably only change these if you know what you're doing</p>
+<table>
+  <tr>
+    <td>
+      <mat-form-field>
+        <mat-label>sorceryPoint * lvl multiplier</mat-label>
+        <input matInput [(ngModel)]='ldata.sorcmulti' (change)='ldata.calcspellpoints()'>
+      </mat-form-field>
+    </td>
+  </tr>
+</table>
+<table>
+  <tr>
+    <td>
+      <mat-form-field style='width: 5rem;'>
+        <input matInput [(ngModel)]='ldata.max6th' placeholder='max 6ths'>
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field style='width: 5rem;'>
+        <input matInput [(ngModel)]='ldata.max7th' placeholder='max 7ths'>
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field style='width: 5rem;'>
+        <input matInput [(ngModel)]='ldata.max8th' placeholder='max 8ths'>
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field style='width: 5rem;'>
+        <input matInput [(ngModel)]='ldata.max9th' placeholder='max 9ths'>
+      </mat-form-field>
+    </td>
+  </tr>
+</table>
 
 </div>

@@ -20,7 +20,6 @@ export class AppComponent implements OnInit, OnDestroy {
 // tslint:disable: variable-name
 
 
-
   private subscriptions: Subscription;
 
   ngOnDestroy() {
@@ -87,7 +86,7 @@ export class AppComponent implements OnInit, OnDestroy {
       this.ws.sendback('Add_person', pp);
       return;
     }
-    this.ldata.textinput = settings.textinput;
+    this.ldata.statementinput = settings.statementinput;
     this.ldata.quickslots = settings.quickslots;
     this.ldata.current_user = settings.current_user;
     this.ldata.selected_color = settings.selected_color;
