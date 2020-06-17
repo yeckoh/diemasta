@@ -22,12 +22,12 @@ export class SpellpointsComponent implements OnInit {
     this.ldata.lvl = spellpoints.lvl as number;
     this.ldata.calclvl = spellpoints.calclvl;
     this.ldata.maxpoints = spellpoints.maxpoints;
-    this.ldata.dailies = spellpoints.maxdailies;
+    this.ldata.dailies = spellpoints.dailies;
     this.ldata.reee = spellpoints.reee;
     this.ldata.manualaddsubtract = spellpoints.manualaddsubtract;
     this.ldata.maxspell = spellpoints.maxspell;
     this.ldata.currentcost = 0;
-    this.ldata.has_reeed = spellpoints.has_reeed;
+    // this.ldata.has_reeed = spellpoints.has_reeed;
     this.ldata.showpercent = spellpoints.showpercent;
     this.ldata.overlimit = spellpoints.overlimit;
     this.ldata.sorcmulti = spellpoints.sorcmulti;
@@ -36,12 +36,7 @@ export class SpellpointsComponent implements OnInit {
     this.ldata.max7th = spellpoints.maxdailies[1];
     this.ldata.max8th = spellpoints.maxdailies[2];
     this.ldata.max9th = spellpoints.maxdailies[3];
+    this.ldata.dailiesspent = spellpoints.dailiesspent;
   }
-
-  cost = 0;
-  
-
-
-
 
 }
