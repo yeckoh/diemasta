@@ -8,7 +8,7 @@ import { LocaldataService } from '../services/localdata.service';
 })
 export class SpellpointsComponent implements OnInit {
 
-  constructor(protected ldata: LocaldataService) { }
+  constructor(public ldata: LocaldataService) { }
 
   ngOnInit() {
   }

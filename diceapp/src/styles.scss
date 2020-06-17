@@ -27,3 +27,37 @@ span {font-size: larger; height:50%; }
 .mat-select-panel {
   max-height: 80vh !important;
 }
+
+
+.lowalpha {
+  color: rgba(255, 255, 255, 0.333);
+}
+
+
+.borderdetection {
+  border: blanchedalmond;
+  border-width: 2px;
+  border-style: solid;
+}
+
+.outer {
+  overflow: auto;
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.toolbar {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.noclip {
+  min-width:fit-content;
+}
+
+.noborder {
+  margin: 0px;
+  padding: 0px;
+}
