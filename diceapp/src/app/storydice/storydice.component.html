@@ -1,15 +1,27 @@
 <div style='width: 100vw; height: 100vh;'>
-<table>
+  <mat-toolbar style='width: 100vw;' [style.background-color]="ldata.colors[ldata.selected_color]">Final Fight Dice</mat-toolbar>
+  <div style='display: flex;'>
+  <table>
   <tr>
     <td>
       <mat-form-field style='width: 3rem;'>
         <input matInput [(ngModel)]='d_ability'>
       </mat-form-field>
     </td>
+    <td style='width: 10rem;'>
+      <button mat-button (click)='rollability()' style='background-color: #272727; color: goldenrod;'>ability</button>
+    </td>
+
     <td>
-      <button mat-raised-button (click)='rollability()' style='color: goldenrod;'>ability</button>
+      <mat-form-field style='width: 3rem;'>
+        <input matInput [(ngModel)]='d_challenge'>
+      </mat-form-field>
+    </td>
+    <td>
+      <button mat-button (click)='rollchallenge()' style='background-color: #272727; color: firebrick'>challenge</button>
     </td>
   </tr>
+
   <tr>
     <td>
       <mat-form-field style='width: 3rem;'>
@@ -17,9 +29,20 @@
       </mat-form-field>
     </td>
     <td>
-      <button mat-raised-button (click)='rollprof()' style='color: seagreen'>proficiency</button>
+      <button mat-button (click)='rollprof()' style='background-color: #272727; color: seagreen'>proficiency</button>
     </td>
+
+    <td>
+      <mat-form-field style='width: 3rem;'>
+        <input matInput [(ngModel)]='d_difficulty'>
+      </mat-form-field>
+    </td>
+    <td>
+      <button mat-button (click)='rolldifficulty()' style='background-color: #272727; color: blueviolet'>difficulty</button>
+    </td>  
   </tr>
+
+
   <tr>
     <td>
       <mat-form-field style='width: 3rem;'>
@@ -27,68 +50,113 @@
       </mat-form-field>
     </td>
     <td>
-      <button mat-raised-button (click)='rollboost()' style='color: skyblue'>boost</button>
+      <button mat-button (click)='rollboost()' style='background-color: #272727; color: skyblue'>boost</button>
     </td>
-    <td>
-      <button mat-raised-button color='primary' (click)='rollcheck()'>roll check</button>
-    </td>
-  </tr>
-  <tr>
+
     <td>
       <mat-form-field style='width: 3rem;'>
-        <input matInput [(ngModel)]='d_challenge'>
+        <input matInput [(ngModel)]='d_setback'>
       </mat-form-field>
     </td>
     <td>
-      <button mat-raised-button (click)='rollchallenge()' style='color: firebrick'>challenge</button>
+      <button mat-button (click)='rollsetback()' style='background-color: #272727; color: darkslateblue'>setback</button>
     </td>
   </tr>
+
+
+  <br>
+
+
+  <tr>
+    <td colspan=2>
+      <button mat-raised-button color='primary' (click)='rollcheck()'>roll check</button>
+    </td>
+    <td colspan=2>
+      <button mat-raised-button color='accent' (click)='rolldc()'>roll DC</button>
+    </td>  
+  </tr>
 <tr>
-  <td>
-    <mat-form-field style='width: 3rem;'>
-      <input matInput [(ngModel)]='d_difficulty'>
-    </mat-form-field>
-  </td>
-  <td>
-    <button mat-raised-button (click)='rolldifficulty()' style='color: blueviolet'>difficulty</button>
-  </td>
 </tr>
 <tr>
-  <td>
-    <mat-form-field style='width: 3rem;'>
-      <input matInput [(ngModel)]='d_setback'>
-    </mat-form-field>
-  </td>
-  <td>
-    <button mat-raised-button (click)='rollsetback()' style='color: darkslateblue'>setback</button>
-  </td>
-  <td>
-    <button mat-raised-button color='accent' (click)='rolldc()'>roll DC</button>
-  </td>
 </tr>
   <tr>
-    <td colspan="3">
+    <td colspan="2">
       <p *ngIf="r_success > 0" style='color: seagreen'>{{r_success}} successes</p>
     </td>
-  </tr>
-  <tr>
-    <td colspan="3">
+    <td colspan="2">
       <p *ngIf="r_failiure > 0" style='color: firebrick'>{{r_failiure}} failiures</p>
     </td>
   </tr>
   <tr>
-    <td colspan="3">
+    <td colspan="2">
       <p *ngIf="r_advantage > 0" style='color: goldenrod'>{{r_advantage}} advantage</p>
     </td>
-  </tr>
-  <tr>
-    <td colspan="3">
+    <td colspan="2">
       <p *ngIf="r_threat > 0" style='color: blueviolet'>{{r_threat}} threat</p>
     </td>
   </tr>
 
-
 </table>
+
+<div style='padding-left: 4rem;'>
+  <!-- <p>Difficulty Chart:</p> -->
+  <table mat-table [dataSource]='difficultytable' style='width: 24rem;' class='mat-elevation-z4'>
+    <ng-container matColumnDef='pos'>
+      <th mat-header-cell *matHeaderCellDef> No. </th>
+      <td mat-cell *matCellDef="let element"> {{element.pos}} </td>
+    </ng-container>
+    <ng-container matColumnDef='difflvl'>
+      <th mat-header-cell *matHeaderCellDef> *Difficulty </th>
+      <td mat-cell *matCellDef="let element"> {{element.difflvl}} </td>
+    </ng-container>
+    <ng-container matColumnDef='tooltip'>
+      <th mat-header-cell *matHeaderCellDef> Description </th>
+      <td mat-cell *matCellDef="let element"> {{element.tooltip}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <label>tips</label>
+  <table>
+    <tr>
+      <td>
+        <label class='lowalpha' matTooltip='Natural ability. Typically 2s or 3s. Eg: quick thinker, fast reflexes'>*Abilities</label>
+      </td>
+      <td>
+        <label class='lowalpha' matTooltip='Upgrade purples to reds if theres a chance for something to go horribly wrong. Eg: bridge crossing & its possible to fall to death'>*Challenges</label>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label class='lowalpha' matTooltip="Chosen focuses. Typically a +1 'I trained for this moment'">*Proficiencies</label>
+      </td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>
+        <label class='lowalpha' matTooltip="Receiving aid / talents. Eg: I have the high ground, I'm using my toolbox">*Boosts</label>
+      </td>
+      <td>
+        <label class='lowalpha' matTooltip='Unfavorable conditions. Eg: low vis/fog, inclement weather, gotta be quiet so the guards dont notice'>*Setbacks</label>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label class='lowalpha' matTooltip='Something good happens. Eg: you hit, and it crits. Or you miss, but now hes wide open'>*Advantages</label>
+      </td>
+      <td>
+        <label class='lowalpha' matTooltip='Something bad happens. Eg: you hit, but you lose grip of your sword. Or you miss, and your sword goes flying'>*Threats</label>
+      </td>
+    </tr>
+  </table>
+  <!-- <p>difficulty meter:</p>
+  <p>1 purple: ezpz</p> -->
+</div>
+
+
+</div>
+
 
 <mat-divider></mat-divider>
 <br>

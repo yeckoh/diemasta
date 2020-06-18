@@ -2,6 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { LocaldataService } from '../services/localdata.service';
 import { WsService } from '../services/ws.service';
 
+
+export interface difficultydata {
+  difflvl: string;
+  tooltip: string;
+  pos: number;
+}
+
+
 @Component({
   selector: 'app-storydice',
   templateUrl: './storydice.component.html',
@@ -17,6 +25,9 @@ export class StorydiceComponent implements OnInit {
   // tslint:disable: no-inferrable-types
   // tslint:disable: curly
   // tslint:disable: no-switch-case-fall-through
+
+  difficultytable: difficultydata[];
+  displayedColumns: string[] = ['pos', 'difflvl', 'tooltip'];
 
 
   // results
@@ -48,6 +59,13 @@ export class StorydiceComponent implements OnInit {
   // ondestroy
 
   ngOnInit(): void {
+    this.difficultytable = [
+      {difflvl:'ez', tooltip:'O.K.', pos: 1},
+      {difflvl:'average', tooltip:'ok', pos: 2},
+      {difflvl:'hard', tooltip:'alright', pos: 3},
+      {difflvl:'daunting', tooltip:'okay', pos: 4},
+      {difflvl:'impossib', tooltip:'oof', pos: 5},
+    ];
     // subscriptions =
     // subscriptions.add
   }
