@@ -5,7 +5,7 @@
   <tr>
     <td>
       <mat-form-field style='width: 3rem;'>
-        <input matInput [(ngModel)]='d_ability'>
+        <input matInput [(ngModel)]='finalFantasy.d_ability'>
       </mat-form-field>
     </td>
     <td style='width: 10rem;'>
@@ -14,7 +14,7 @@
 
     <td>
       <mat-form-field style='width: 3rem;'>
-        <input matInput [(ngModel)]='d_challenge'>
+        <input matInput [(ngModel)]='finalFantasy.d_challenge'>
       </mat-form-field>
     </td>
     <td>
@@ -25,7 +25,7 @@
   <tr>
     <td>
       <mat-form-field style='width: 3rem;'>
-        <input matInput [(ngModel)]='d_prof'>
+        <input matInput [(ngModel)]='finalFantasy.d_prof'>
       </mat-form-field>
     </td>
     <td>
@@ -34,7 +34,7 @@
 
     <td>
       <mat-form-field style='width: 3rem;'>
-        <input matInput [(ngModel)]='d_difficulty'>
+        <input matInput [(ngModel)]='finalFantasy.d_difficulty'>
       </mat-form-field>
     </td>
     <td>
@@ -46,7 +46,7 @@
   <tr>
     <td>
       <mat-form-field style='width: 3rem;'>
-        <input matInput [(ngModel)]='d_boost'>
+        <input matInput [(ngModel)]='finalFantasy.d_boost'>
       </mat-form-field>
     </td>
     <td>
@@ -55,7 +55,7 @@
 
     <td>
       <mat-form-field style='width: 3rem;'>
-        <input matInput [(ngModel)]='d_setback'>
+        <input matInput [(ngModel)]='finalFantasy.d_setback'>
       </mat-form-field>
     </td>
     <td>
@@ -81,18 +81,18 @@
 </tr>
   <tr>
     <td colspan="2">
-      <p *ngIf="r_success > 0" style='color: seagreen'>{{r_success}} successes</p>
+      <p *ngIf="finalFantasy.r_success > 0" style='color: seagreen'>{{finalFantasy.r_success}} successes</p>
     </td>
     <td colspan="2">
-      <p *ngIf="r_failiure > 0" style='color: firebrick'>{{r_failiure}} failiures</p>
+      <p *ngIf="finalFantasy.r_failiure > 0" style='color: firebrick'>{{finalFantasy.r_failiure}} failiures</p>
     </td>
   </tr>
   <tr>
     <td colspan="2">
-      <p *ngIf="r_advantage > 0" style='color: goldenrod'>{{r_advantage}} advantage</p>
+      <p *ngIf="finalFantasy.r_advantage > 0" style='color: goldenrod'>{{finalFantasy.r_advantage}} advantage</p>
     </td>
     <td colspan="2">
-      <p *ngIf="r_threat > 0" style='color: blueviolet'>{{r_threat}} threat</p>
+      <p *ngIf="finalFantasy.r_threat > 0" style='color: blueviolet'>{{finalFantasy.r_threat}} threat</p>
     </td>
   </tr>
 
@@ -165,14 +165,14 @@
   <label>results</label>
   <tr>
     <td>
-      <p *ngIf="r_success - r_failiure > 0; else failed" style='color: seagreen' >{{r_success - r_failiure}} success</p>
-      <ng-template #failed><p *ngIf="r_success - r_failiure < 0" style='color: firebrick'>{{r_failiure - r_success}} failiure</p></ng-template>
+      <p *ngIf="finalFantasy.r_success - finalFantasy.r_failiure > 0; else failed" style='color: seagreen' >{{finalFantasy.r_success - finalFantasy.r_failiure}} success</p>
+      <ng-template #failed><p *ngIf="finalFantasy.r_success - finalFantasy.r_failiure < 0" style='color: firebrick'>{{finalFantasy.r_failiure - finalFantasy.r_success}} failiure</p></ng-template>
     </td>
   </tr>
   <tr>
     <td>
-      <p *ngIf="r_advantage - r_threat > 0; else failed2" style='color: goldenrod' >{{r_advantage - r_threat}} advantage</p>
-      <ng-template #failed2><p *ngIf="r_advantage - r_threat < 0" style='color: blueviolet'>{{r_threat - r_advantage}} threat</p></ng-template>
+      <p *ngIf="finalFantasy.r_advantage - finalFantasy.r_threat > 0; else failed2" style='color: goldenrod' >{{finalFantasy.r_advantage - finalFantasy.r_threat}} advantage</p>
+      <ng-template #failed2><p *ngIf="finalFantasy.r_advantage - finalFantasy.r_threat < 0" style='color: blueviolet'>{{finalFantasy.r_threat - finalFantasy.r_advantage}} threat</p></ng-template>
     </td>
   </tr>
 
@@ -184,7 +184,7 @@
 
 
 <br>
-<p>{{r_triumph}} triumph {{r_despair}} despair</p>
+<p>{{finalFantasy.r_triumph}} triumph {{finalFantasy.r_despair}} despair</p>
 
 <table>
   <tr>

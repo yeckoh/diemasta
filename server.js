@@ -25,10 +25,10 @@ mongoose.connection.on('error', (err) => {
 });
 
 // middleware EXPRESS
-const port = 3000;
+const port = 7331;
 const app = express()
 .use(bodyParser.json())
-.use(cors({ origin: 'http://localhost:4200' }));
+.use(cors());
 
 // socketstuff
 // socket io, pass in instance of a http server
@@ -48,6 +48,7 @@ wsocket.on('connection', function(socket) {
 
   require('./hooks/disconnect_hooks')(socket_ids, socket);
   require('./hooks/statements_hooks')(socket);
+  require('./hooks/fantasy_hooks')(socket);
   require('./hooks/initiative_hooks')(socket);
   require('./hooks/people_hooks')(people, socket);
   // require('./routes/effect_hooks')(socket);
