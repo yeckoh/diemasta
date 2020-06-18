@@ -144,28 +144,28 @@
     <tr>
       <td>
   <mat-selection-list #metamagicks style='width: 10rem;' (selectionChange)='ldata.modifycosts(metamagicks._value)'>
-    <mat-list-option value=1 [checkboxPosition]='before' [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#CCCCCC' : ldata.colors[ldata.selected_color]}">
+    <mat-list-option value=1 [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#CCCCCC' : ldata.colors[ldata.selected_color]}"> <!-- [checkboxPosition]=before -->
       careful
     </mat-list-option>
-    <mat-list-option value=2 [checkboxPosition]='before' [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#CCCCCC' : ldata.colors[ldata.selected_color]}">
+    <mat-list-option value=2 [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#CCCCCC' : ldata.colors[ldata.selected_color]}">
       distant
     </mat-list-option>
-    <mat-list-option value=3 [checkboxPosition]='before' [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#CCCCCC' : ldata.colors[ldata.selected_color]}">
+    <mat-list-option value=3 [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#CCCCCC' : ldata.colors[ldata.selected_color]}">
       extendo
     </mat-list-option>
-    <mat-list-option value=4 [checkboxPosition]='before' [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#CCCCCC' : ldata.colors[ldata.selected_color]}">
+    <mat-list-option value=4 [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#CCCCCC' : ldata.colors[ldata.selected_color]}">
       heighten
     </mat-list-option>
-    <mat-list-option value=5 [checkboxPosition]='before' [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#CCCCCC' : ldata.colors[ldata.selected_color]}">
+    <mat-list-option value=5 [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#CCCCCC' : ldata.colors[ldata.selected_color]}">
       quicken
     </mat-list-option>
-    <mat-list-option value=6 [checkboxPosition]='before' [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#CCCCCC' : ldata.colors[ldata.selected_color]}">
+    <mat-list-option value=6 [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#CCCCCC' : ldata.colors[ldata.selected_color]}">
       subtle
     </mat-list-option>
-    <mat-list-option value=7 [checkboxPosition]='before' [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#CCCCCC' : ldata.colors[ldata.selected_color]}">
+    <mat-list-option value=7 [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#CCCCCC' : ldata.colors[ldata.selected_color]}">
       twin
     </mat-list-option>
-    <mat-list-option value=8 [checkboxPosition]='before' [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#CCCCCC' : ldata.colors[ldata.selected_color]}">
+    <mat-list-option value=8 [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#CCCCCC' : ldata.colors[ldata.selected_color]}">
       empower
     </mat-list-option>
   </mat-selection-list>

@@ -395,35 +395,35 @@ export class LocaldataService implements OnDestroy, OnInit {
     // this.statementinput = this.things[this.selected_index].str;
     if (this.statementinput !== '') {
       this.newroll();
-      this.onDownKey();
+      // this.onDownKey();
     }
   }
 
-  onUpKey() { // move up index
-    if (this.selected_index > 0) {
-      --this.selected_index;
-    }
-  }
+//   onUpKey() { // move up index
+//     if (this.selected_index > 0) {
+//       --this.selected_index;
+//     }
+//   }
 
-  onDownKey() { // move down index
-    if (this.selected_index < this.things.length - 1) {
-      ++this.selected_index;
-    }
-  }
+//   onDownKey() { // move down index
+//     if (this.selected_index < this.things.length - 1) {
+//       ++this.selected_index;
+//     }
+//   }
 
-  onRightKey() { // call expansion
-    if (this.things[this.selected_index] !== undefined) {
-      this.things[this.selected_index].expand = true;
-      this.expandroll(this.things[this.selected_index]);
-    }
-  }
+//   onRightKey() { // call expansion
+//     if (this.things[this.selected_index] !== undefined) {
+//       this.things[this.selected_index].expand = true;
+//       this.expandroll(this.things[this.selected_index]);
+//     }
+//   }
 
-  onLeftKey() { // call shrink
-    if (this.things[this.selected_index] !== undefined) {
-      this.things[this.selected_index].expand = false;
-      this.expandroll(this.things[this.selected_index]);
-  }
-}
+//   onLeftKey() { // call shrink
+//     if (this.things[this.selected_index] !== undefined) {
+//       this.things[this.selected_index].expand = false;
+//       this.expandroll(this.things[this.selected_index]);
+//   }
+// }
 
   // ==========================================
   //  ROLLING FUNCS ===========================
@@ -468,22 +468,18 @@ export class LocaldataService implements OnDestroy, OnInit {
         totalmod = +sidecount[0] * +sidecount[1];
 
       totalmod += evaluate(0+addendum[i+1]);
-      results.push(evaluate(this.calculate(+sidecount[0], +sidecount[1], entry) + totalmod + addendum[i+1] + ''));
+      results.push(evaluate(this.calculate(+sidecount[0], +sidecount[1], entry) + addendum[i+1] + ''));
       if (split[i].startsWith('-', 0))
         results[results.length-1] *= -1;
-      if (addendum[i+1] !== '') {
-        entry.rollhistory[entry.rollhistory.length-2] += '\xa0\xa0' + addendum[i+1];
-        if (totalmod >= 0)
-          entry.rollhistory[entry.rollhistory.length-1] = '+' + totalmod + '\xa0\xa0' + entry.rollhistory[entry.rollhistory.length-1];
-        else
-        entry.rollhistory[entry.rollhistory.length-1] = totalmod + '\xa0\xa0' + entry.rollhistory[entry.rollhistory.length-1];
-      }
+      if (addendum[i+1] !== '')
+        entry.rollhistory[entry.rollhistory.length-2] += ' ' + addendum[i+1];
+      entry.rollhistory[entry.rollhistory.length-2] += '\xa0\xa0\xa0\xa0' + '⇀ ' + results[results.length-1];
     }
 
     results.forEach(e => {
       entry.result += +e;
     });
-    console.log(entry.result);
+    // console.log(entry);
     if (isNaN(entry.result))
       entry.result = Number.POSITIVE_INFINITY;
     this.ws.sendback('Create_one_statement', entry);
@@ -514,14 +510,12 @@ export class LocaldataService implements OnDestroy, OnInit {
           // console.log('EXPLOOOOOOOOOOSION');
           --i;
         }
-        // e.rollhistory.push(roll);
         e.rollhistory[e.rollhistory.length - 1] += roll + ' ';
         returnval += roll;
       }
     } else { // noncrit
       for (let i = 0; i < c; ++i) {
         roll = Math.floor(Math.random() * s) + 1;
-        // e.rollhistory.push(roll);
         e.rollhistory[e.rollhistory.length - 1] += roll + ' ';
         returnval += roll;
       }

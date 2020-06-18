@@ -99,6 +99,7 @@ export class AppComponent implements OnInit, OnDestroy {
     pp.name = this.ldata.current_user;
     this.ldata.people.push(pp);
     this.ws.sendback('Add_person', pp);
+    this.ldata.updateDisplayGroups();
     // this.ldata.people.push(this.ldata.current_user);
     // this.ws.sendback('Add_person', this.ldata.current_user);
   }
