@@ -5,7 +5,7 @@
   <tr>
     <td>
       <mat-form-field style='width: 3rem;'>
-        <input matInput [(ngModel)]='finalFantasy.d_ability'>
+        <input matInput [(ngModel)]='finalFantasy.d_ability' (input)='changeAmount()'>
       </mat-form-field>
     </td>
     <td style='width: 10rem;'>
@@ -14,7 +14,7 @@
 
     <td>
       <mat-form-field style='width: 3rem;'>
-        <input matInput [(ngModel)]='finalFantasy.d_challenge'>
+        <input matInput [(ngModel)]='finalFantasy.d_challenge' (input)='changeAmount()'>
       </mat-form-field>
     </td>
     <td>
@@ -25,7 +25,7 @@
   <tr>
     <td>
       <mat-form-field style='width: 3rem;'>
-        <input matInput [(ngModel)]='finalFantasy.d_prof'>
+        <input matInput [(ngModel)]='finalFantasy.d_prof' (input)='changeAmount()'>
       </mat-form-field>
     </td>
     <td>
@@ -34,7 +34,7 @@
 
     <td>
       <mat-form-field style='width: 3rem;'>
-        <input matInput [(ngModel)]='finalFantasy.d_difficulty'>
+        <input matInput [(ngModel)]='finalFantasy.d_difficulty' (input)='changeAmount()'>
       </mat-form-field>
     </td>
     <td>
@@ -46,7 +46,7 @@
   <tr>
     <td>
       <mat-form-field style='width: 3rem;'>
-        <input matInput [(ngModel)]='finalFantasy.d_boost'>
+        <input matInput [(ngModel)]='finalFantasy.d_boost' (input)='changeAmount()'>
       </mat-form-field>
     </td>
     <td>
@@ -55,7 +55,7 @@
 
     <td>
       <mat-form-field style='width: 3rem;'>
-        <input matInput [(ngModel)]='finalFantasy.d_setback'>
+        <input matInput [(ngModel)]='finalFantasy.d_setback' (input)='changeAmount()'>
       </mat-form-field>
     </td>
     <td>

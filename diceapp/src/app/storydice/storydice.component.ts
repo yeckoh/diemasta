@@ -75,20 +75,20 @@ export class StorydiceComponent implements OnInit {
 
     this.subscriptions = (this.ws.listenfor('Created_fantasy').subscribe(data => {
       // data is a Fantasy
-      console.log('initialized fantasy');
+      // console.log('initialized fantasy');
       this.finalFantasy = data as Fantasy;
     }));
 
     this.subscriptions = (this.ws.listenfor('Read_fantasy').subscribe(data => {
       // data is a Fantasy
-      console.log('read fantasy');
-      console.log(data);
+      // console.log('read fantasy');
+      // console.log(data);
       if ((data as []).length === 0) {
         console.log('there was no fantasy');
         this.ws.sendback('Create_one_fantasy', null);
       }
       this.finalFantasy = data as Fantasy;
-      console.log(this.finalFantasy);
+      // console.log(this.finalFantasy);
     }));
 
     this.subscriptions.add(this.ws.listenfor('Updated_fantasy').subscribe(data => {
@@ -100,6 +100,9 @@ export class StorydiceComponent implements OnInit {
     this.ws.sendback('Get_fantasy', null);    
   }
 
+  changeAmount() {
+    this.ws.sendback('Update_fantasy', this.finalFantasy);
+  }
 
   // difficulty
   rolldifficulty() {
@@ -132,6 +135,7 @@ export class StorydiceComponent implements OnInit {
           break;
       }
     }
+    this.ws.sendback('Update_fantasy', this.finalFantasy);
   }
 
   rollchallenge() {
@@ -170,6 +174,7 @@ export class StorydiceComponent implements OnInit {
           break;
       }
     }
+    this.ws.sendback('Update_fantasy', this.finalFantasy);
   }
 
 
@@ -204,6 +209,7 @@ export class StorydiceComponent implements OnInit {
           break;
       }
     }
+    this.ws.sendback('Update_fantasy', this.finalFantasy);
   }
 
   rollprof() {
@@ -242,6 +248,7 @@ export class StorydiceComponent implements OnInit {
           break;
       }
     }
+    this.ws.sendback('Update_fantasy', this.finalFantasy);
   }
 
   // ++this.r_advantage;
@@ -275,6 +282,7 @@ export class StorydiceComponent implements OnInit {
           break;
       }
     }
+    this.ws.sendback('Update_fantasy', this.finalFantasy);
   }
 
   // ++this.r_failiure;
@@ -301,6 +309,7 @@ export class StorydiceComponent implements OnInit {
           break;
       }
     }
+    this.ws.sendback('Update_fantasy', this.finalFantasy);
   }
 
   rollcheck() {
@@ -319,12 +328,14 @@ export class StorydiceComponent implements OnInit {
     this.finalFantasy.r_advantage = 0;
     this.finalFantasy.r_success = 0;
     this.finalFantasy.r_triumph = 0;
+    this.ws.sendback('Update_fantasy', this.finalFantasy);
   }
 
   resetdc() {
     this.finalFantasy.r_despair = 0;
     this.finalFantasy.r_failiure = 0;
     this.finalFantasy.r_threat = 0;
+    this.ws.sendback('Update_fantasy', this.finalFantasy);
   }
 
   resetall() {
@@ -348,6 +359,7 @@ export class StorydiceComponent implements OnInit {
     // circumstantial
     this.finalFantasy.d_boost = 0; // white d6
     this.finalFantasy.d_setback = 0; // black d6
+    this.ws.sendback('Update_fantasy', this.finalFantasy);
   }
 
 

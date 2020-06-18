@@ -53,7 +53,8 @@ module.exports = function(socket) {
     // UPDATE_ONE
     socket.on('Update_fantasy', function(data) {
         FinalFantasy.findByIdAndUpdate(data._id, data, {new: true}, function(err, fantasy) {
-            socket.emit('Updated_fantasy', fantasy);
+            // socket.emit('Updated_fantasy', fantasy);
+            socket.broadcast.emit('Updated_fantasy', fantasy);
         });
     });
 
