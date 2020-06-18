@@ -3,6 +3,7 @@ import { LocaldataService } from '../services/localdata.service';
 import { WsService } from '../services/ws.service';
 import { Subscription } from 'rxjs';
 import { Fantasy } from '../models/fantasy.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 export interface difficultydata {
@@ -19,7 +20,7 @@ export interface difficultydata {
 })
 export class StorydiceComponent implements OnInit {
 
-  constructor(protected ldata: LocaldataService, private ws : WsService) { }
+  constructor(public ldata: LocaldataService, private ws : WsService, private alohaSnackBar: MatSnackBar) { }
 
   // tslint:disable: class-name
   // tslint:disable: variable-name
@@ -31,30 +32,6 @@ export class StorydiceComponent implements OnInit {
   difficultytable: difficultydata[];
   displayedColumns: string[] = ['pos', 'difflvl', 'tooltip'];
   finalFantasy: Fantasy = new Fantasy();
-
-  // results
-  // r_advantage = 0;
-  // r_threat = 0;
-
-  // r_success = 0;
-  // r_failiure = 0;
-
-  // r_triumph = 0;
-  // r_despair = 0;
-
-  // // difficulty
-  // d_difficulty = 3; // purple d8
-  // d_challenge = 1; // red d12
-
-  // // player attempt
-  // d_ability = 2; // green d8
-  // d_prof = 1; // yellow d12
-
-  // // circumstantial
-  // d_boost = 0; // white d6
-  // d_setback = 0; // black d6
-
-
   // difficulty = [0, 1, 2, 3, 4, 5];
 
   private subscriptions: Subscription;
@@ -70,7 +47,7 @@ export class StorydiceComponent implements OnInit {
       {difflvl:'average', tooltip:'okay', pos: 2},
       {difflvl:'hard', tooltip:'Okay', pos: 3},
       {difflvl:'daunting', tooltip:'OKAY', pos: 4},
-      {difflvl:'impossib', tooltip:'Oof', pos: 5},
+      {difflvl:'impossib', tooltip:'Oof!', pos: 5},
     ];
 
     this.subscriptions = (this.ws.listenfor('Created_fantasy').subscribe(data => {

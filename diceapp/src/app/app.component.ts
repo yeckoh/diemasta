@@ -14,7 +14,7 @@ import { LocaldataService, person } from './services/localdata.service';
 })
 export class AppComponent implements OnInit, OnDestroy {
   // title = 'material';
-  constructor(private ws: WsService, public ldata: LocaldataService, private alohasnackbar: MatSnackBar) { }
+  constructor(private ws: WsService, public ldata: LocaldataService, private alohaSnackBar: MatSnackBar) { }
 
 // tslint:disable: class-name
 // tslint:disable: variable-name
