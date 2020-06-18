@@ -1,108 +1,77 @@
+<div style='width: 100vw; height: 100vh;'>
 <table>
-
-
   <tr>
-
     <td>
-      <mat-form-field style='width: 5rem;'>
+      <mat-form-field style='width: 3rem;'>
         <input matInput [(ngModel)]='d_ability'>
       </mat-form-field>
     </td>
-
-    <td>
-      <mat-form-field style='width: 5rem;'>
-        <input matInput [(ngModel)]='d_prof'>
-      </mat-form-field>
-    </td>
-
-    <td>
-      <mat-form-field style='width: 5rem;'>
-        <input matInput [(ngModel)]='d_boost'>
-      </mat-form-field>
-    </td>
-
-    <td>
-      <mat-form-field style='width: 5rem;'>
-        <input matInput [(ngModel)]='d_challenge'>
-      </mat-form-field>
-    </td>
-
-    <td>
-      <mat-form-field style='width: 5rem;'>
-        <input matInput [(ngModel)]='d_difficulty'>
-      </mat-form-field>
-    </td>
-
-    <td>
-      <mat-form-field style='width: 5rem;'>
-        <input matInput [(ngModel)]='d_setback'>
-      </mat-form-field>
-    </td>
-
-    <td>
-
-    </td>
-
-  </tr>
-
-
-
-
-
-
-  <tr>
-
-
     <td>
       <button mat-raised-button (click)='rollability()' style='color: goldenrod;'>ability</button>
     </td>
-
+  </tr>
+  <tr>
+    <td>
+      <mat-form-field style='width: 3rem;'>
+        <input matInput [(ngModel)]='d_prof'>
+      </mat-form-field>
+    </td>
     <td>
       <button mat-raised-button (click)='rollprof()' style='color: seagreen'>proficiency</button>
     </td>
-
-
-
+  </tr>
+  <tr>
+    <td>
+      <mat-form-field style='width: 3rem;'>
+        <input matInput [(ngModel)]='d_boost'>
+      </mat-form-field>
+    </td>
     <td>
       <button mat-raised-button (click)='rollboost()' style='color: skyblue'>boost</button>
     </td>
-
-
+    <td>
+      <button mat-raised-button color='primary' (click)='rollcheck()'>roll check</button>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <mat-form-field style='width: 3rem;'>
+        <input matInput [(ngModel)]='d_challenge'>
+      </mat-form-field>
+    </td>
     <td>
       <button mat-raised-button (click)='rollchallenge()' style='color: firebrick'>challenge</button>
     </td>
-
-
-
-    <td>
-      <button mat-raised-button (click)='rolldifficulty()' style='color: blueviolet'>difficulty</button>
-    </td>
-
-
-    <td>
-      <button mat-raised-button (click)='rollsetback()' style='color: darkslateblue'>setback</button>
-    </td>
-
-
-
-
-
-
   </tr>
-  <tr>
-    <td colspan="3">
-      <button mat-raised-button (click)='rollcheck()'>roll check</button>
-
-    </td>
-    <td colspan="3">
-      <button mat-raised-button (click)='rolldc()'>roll DC</button>
-    </td>
-  </tr>
-
+<tr>
+  <td>
+    <mat-form-field style='width: 3rem;'>
+      <input matInput [(ngModel)]='d_difficulty'>
+    </mat-form-field>
+  </td>
+  <td>
+    <button mat-raised-button (click)='rolldifficulty()' style='color: blueviolet'>difficulty</button>
+  </td>
+</tr>
+<tr>
+  <td>
+    <mat-form-field style='width: 3rem;'>
+      <input matInput [(ngModel)]='d_setback'>
+    </mat-form-field>
+  </td>
+  <td>
+    <button mat-raised-button (click)='rollsetback()' style='color: darkslateblue'>setback</button>
+  </td>
+  <td>
+    <button mat-raised-button color='accent' (click)='rolldc()'>roll DC</button>
+  </td>
+</tr>
   <tr>
     <td colspan="3">
       <p *ngIf="r_success > 0" style='color: seagreen'>{{r_success}} successes</p>
     </td>
+  </tr>
+  <tr>
     <td colspan="3">
       <p *ngIf="r_failiure > 0" style='color: firebrick'>{{r_failiure}} failiures</p>
     </td>
@@ -111,6 +80,8 @@
     <td colspan="3">
       <p *ngIf="r_advantage > 0" style='color: goldenrod'>{{r_advantage}} advantage</p>
     </td>
+  </tr>
+  <tr>
     <td colspan="3">
       <p *ngIf="r_threat > 0" style='color: blueviolet'>{{r_threat}} threat</p>
     </td>
@@ -120,9 +91,10 @@
 </table>
 
 <mat-divider></mat-divider>
+<br>
 
 <table>
-
+  <label>results</label>
   <tr>
     <td>
       <p *ngIf="r_success - r_failiure > 0; else failed" style='color: seagreen' >{{r_success - r_failiure}} success</p>
@@ -146,6 +118,21 @@
 <br>
 <p>{{r_triumph}} triumph {{r_despair}} despair</p>
 
-<button mat-raised-button (click)='resetcheck()' color='primary'>clear check</button>
-<button mat-raised-button (click)='resetdc()' color='primary'>clear dc</button>
-<button mat-raised-button (click)='resetall()' color='primary'>reset</button>
+<table>
+  <tr>
+    <button mat-raised-button (click)='resetcheck()' color='primary'>clear check</button>
+  </tr>
+  <tr>
+    <button mat-raised-button (click)='resetdc()' color='accent'>clear dc</button>
+  </tr>
+  <tr>
+    <button mat-raised-button (click)='resetall()' color='warn'>reset</button>    
+  </tr>
+</table>
+
+
+
+</div>
+
+
+
