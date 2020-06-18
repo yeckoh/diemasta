@@ -63,7 +63,7 @@
       </td>
     </tr>
     <tr>
-      <td>{{ldata.currentpoints}} -{{ldata.currentcost}} ⇀ {{ldata.currentpoints - ldata.currentcost}}</td>
+      <td style='color: rgba(255, 255, 255, .5);'>{{ldata.currentpoints}} -{{ldata.currentcost}} ⇀ {{ldata.currentpoints - ldata.currentcost}}</td>
       <td style='width: 4rem; text-align: left;' *ngIf="ldata.showpercent" class='lowalpha'>
         {{(ldata.currentpoints-ldata.currentcost)/ldata.maxpoints | percent:'1.0-2'}}
       </td>
@@ -71,7 +71,7 @@
   </table>
   <table>
     <tr>
-      <td style='width: 22rem;'>
+      <td style='width: 24rem;'>
         <!-- <mat-progress-bar style='position: absolute; top: 0; left: 0; z-index: 2; opacity: 33%;' color='accent' mode='determinate' [(value)]='ldata.currentpoints*200/ldata.maxpoints'></mat-progress-bar> -->
         <mat-progress-bar mode='determinate' [(value)]='ldata.currentpoints*100/ldata.maxpoints'></mat-progress-bar>
       </td>
@@ -144,28 +144,28 @@
     <tr>
       <td>
   <mat-selection-list #metamagicks style='width: 10rem;' (selectionChange)='ldata.modifycosts(metamagicks._value)'>
-    <mat-list-option value='careful' [checkboxPosition]='before' [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#CCCCCC' : ldata.colors[ldata.selected_color]}">
+    <mat-list-option value=1 [checkboxPosition]='before' [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#CCCCCC' : ldata.colors[ldata.selected_color]}">
       careful
     </mat-list-option>
-    <mat-list-option value='distant' [checkboxPosition]='before' [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#CCCCCC' : ldata.colors[ldata.selected_color]}">
+    <mat-list-option value=2 [checkboxPosition]='before' [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#CCCCCC' : ldata.colors[ldata.selected_color]}">
       distant
     </mat-list-option>
-    <mat-list-option value='extendo' [checkboxPosition]='before' [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#CCCCCC' : ldata.colors[ldata.selected_color]}">
+    <mat-list-option value=3 [checkboxPosition]='before' [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#CCCCCC' : ldata.colors[ldata.selected_color]}">
       extendo
     </mat-list-option>
-    <mat-list-option value='heighten' [checkboxPosition]='before' [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#CCCCCC' : ldata.colors[ldata.selected_color]}">
+    <mat-list-option value=4 [checkboxPosition]='before' [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#CCCCCC' : ldata.colors[ldata.selected_color]}">
       heighten
     </mat-list-option>
-    <mat-list-option value='quicken' [checkboxPosition]='before' [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#CCCCCC' : ldata.colors[ldata.selected_color]}">
+    <mat-list-option value=5 [checkboxPosition]='before' [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#CCCCCC' : ldata.colors[ldata.selected_color]}">
       quicken
     </mat-list-option>
-    <mat-list-option value='subtle' [checkboxPosition]='before' [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#CCCCCC' : ldata.colors[ldata.selected_color]}">
+    <mat-list-option value=6 [checkboxPosition]='before' [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#CCCCCC' : ldata.colors[ldata.selected_color]}">
       subtle
     </mat-list-option>
-    <mat-list-option value='twin' [checkboxPosition]='before' [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#CCCCCC' : ldata.colors[ldata.selected_color]}">
+    <mat-list-option value=7 [checkboxPosition]='before' [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#CCCCCC' : ldata.colors[ldata.selected_color]}">
       twin
     </mat-list-option>
-    <mat-list-option value='empower' [checkboxPosition]='before' [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#CCCCCC' : ldata.colors[ldata.selected_color]}">
+    <mat-list-option value=8 [checkboxPosition]='before' [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#CCCCCC' : ldata.colors[ldata.selected_color]}">
       empower
     </mat-list-option>
   </mat-selection-list>
@@ -176,7 +176,18 @@
 
   <table class='mat-elevation-z4' *ngIf="ldata.selected_class === 'wiz'">
     <tr>
-      <td><button mat-raised-button [style.background-color]="ldata.colors[ldata.selected_color]" (click)='ldata.recoveREEE();'>recoveREEE</button></td>
+      <td colspan=2><button mat-raised-button style='width: 10rem;' [style.background-color]="ldata.colors[ldata.selected_color]" [disabled]='!ldata.reee' (click)='ldata.recoveREEE();'>recoveREEE</button></td>
+    </tr>
+    <tr>
+      <td>{{ldata.reee}} / {{ldata.lvlToPoints[ldata.maxspell]}}</td>
+      <td style='width: 4rem; text-align: right;' *ngIf="ldata.showpercent" class='lowalpha'>
+        {{ldata.reee/ldata.lvlToPoints[ldata.maxspell] | percent:'1.0-2'}}</td>
+    </tr>
+    <tr>
+      <td style='width: 10rem;' colspan=2>
+        <!-- <mat-progress-bar style='position: absolute; top: 0; left: 0; z-index: 2; opacity: 33%;' color='accent' mode='determinate' [(value)]='ldata.currentpoints*200/ldata.maxpoints'></mat-progress-bar> -->
+        <mat-progress-bar mode='determinate' color='accent' [(value)]='ldata.reee*100/ldata.lvlToPoints[ldata.maxspell]'></mat-progress-bar>
+      </td>
     </tr>
   </table>
 

@@ -119,18 +119,23 @@ export class LocaldataService implements OnDestroy, OnInit {
   cost = [0, 2, 3, 5, 6, 7, 9, 10, 11, 13];
   spellselected = 0;
   lvlToPoints = [0, 4, 6, 14, 17, 27, 32, 38, 44, 57, 64, 73, 73, 83, 83, 94, 94, 107, 114, 123, 133];
-  reee = 0;
+  reee = 1337;
+  // whatsmissing = 0;
   manualaddsubtract = 0;
   maxspell = 0;
   currentcost = 0;
+  selectedmetas = [];
 
   // has_reeed: boolean = false;
   showpercent: boolean = true;
   overlimit: boolean = false;
   sorcmulti = 2;
+  reeeformula = '';
 
   calcspellpoints() {
-    // console.log(this.selected_class);
+    if (this.selected_class !== 'sorc') // this is ugly but it works
+      this.selectedmetas.length = 0;
+
     switch(this.selected_class) {
       case 'fullcast': // fullcaster
       case 'sorc': // src
@@ -160,9 +165,12 @@ export class LocaldataService implements OnDestroy, OnInit {
     if (this.maxspell >= 10) {
         this.maxspell = 9;
     }
+    this.reee = this.lvlToPoints[this.maxspell];
+
     this.dailies = [0, 0, 0, 0];
     this.dailiesspent = [0, 0, 0, 0];
     this.currentpoints = this.maxpoints;
+
     switch (this.maxspell) {
       case 9:
       this.dailies[3] = this.max9th;
@@ -186,12 +194,44 @@ export class LocaldataService implements OnDestroy, OnInit {
   }
 
 
-  modifycosts(metamagics: any) {
-    console.log(metamagics);
+  modifycosts(metamagics: string[]) {
+    this.selectedmetas = metamagics;
+    this.spellcost();
   }
 
   spellcost() {
     this.currentcost = this.cost[this.spellselected];
+    if(this.selected_class === 'sorc') {
+    /*
+    1 - careful
+    2 - distant
+    3 - extendo
+    4 - heighten
+    5 - quicken
+    6 - subtle
+    7 - twin
+    8 - empower
+    */
+      if (this.selectedmetas.includes('1'))
+        ++this.currentcost;
+      if (this.selectedmetas.includes('2'))
+        ++this.currentcost;
+      if (this.selectedmetas.includes('3'))
+        ++this.currentcost;
+      if (this.selectedmetas.includes('4'))
+        this.currentcost += 3;
+      if (this.selectedmetas.includes('5'))
+        this.currentcost += 2;
+      if (this.selectedmetas.includes('6'))
+        ++this.currentcost;
+      if (this.selectedmetas.includes('8'))
+       ++this.currentcost;
+      if (this.selectedmetas.includes('7')) {
+        this.currentcost += this.cost[this.spellselected];
+        if (this.spellselected == 0)
+          ++this.currentcost;
+      }
+    }
   }
 
   castspell() {
@@ -205,22 +245,44 @@ export class LocaldataService implements OnDestroy, OnInit {
   }
 
   figurdailiesleft() {
-    this.dailies[0] = this.max6th - this.dailiesspent[0];
-    this.dailies[1] = this.max7th - this.dailiesspent[1];
-    this.dailies[2] = this.max8th - this.dailiesspent[2];
-    this.dailies[3] = this.max9th - this.dailiesspent[3];
-    if (this.currentpoints < this.dailies[0] * this.cost[6])
-      this.dailies[0] = Math.floor(this.currentpoints / this.cost[6]);
-    if (this.currentpoints < this.dailies[1] * this.cost[7])
-      this.dailies[1] = Math.floor(this.currentpoints / this.cost[7]);
-    if (this.currentpoints < this.dailies[2] * this.cost[8])
-      this.dailies[2] = Math.floor(this.currentpoints / this.cost[8]);
-    if (this.currentpoints < this.dailies[3] * this.cost[9])
-      this.dailies[3] = Math.floor(this.currentpoints / this.cost[9]);
+    switch(this.maxspell) {
+      case 9:
+        this.dailies[3] = this.max9th - this.dailiesspent[3];
+        if (this.currentpoints < this.dailies[3] * this.cost[9])
+          this.dailies[3] = Math.floor(this.currentpoints / this.cost[9]);
+      case 8:
+        this.dailies[2] = this.max8th - this.dailiesspent[2];
+        if (this.currentpoints < this.dailies[2] * this.cost[8])
+          this.dailies[2] = Math.floor(this.currentpoints / this.cost[8]);
+      case 7:
+        this.dailies[1] = this.max7th - this.dailiesspent[1];
+        if (this.currentpoints < this.dailies[1] * this.cost[7])
+          this.dailies[1] = Math.floor(this.currentpoints / this.cost[7]);
+      case 6:
+        this.dailies[0] = this.max6th - this.dailiesspent[0];
+        if (this.currentpoints < this.dailies[0] * this.cost[6])
+          this.dailies[0] = Math.floor(this.currentpoints / this.cost[6]);
+      default:
+        return;
+    }
   }
 
   recoveREEE() {
+    if (this.overlimit) {
+      this.currentpoints += this.reee;
+      this.reee = 0;
+      return;
+    }
 
+    const whatsmissing = this.maxpoints - this.currentpoints;
+    const recoveryleft = this.reee - whatsmissing;
+    if (recoveryleft >= 0) {
+      this.currentpoints = this.maxpoints;
+      this.reee = recoveryleft;
+    } else {
+      this.currentpoints += this.reee;
+      this.reee = 0;
+    }
   }
 
   addsubtractpoints() {
