@@ -144,28 +144,52 @@
     <tr>
       <td>
   <mat-selection-list #metamagicks style='width: 10rem;' (selectionChange)='ldata.modifycosts(metamagicks._value)'>
-    <mat-list-option value=1 [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#CCCCCC' : ldata.colors[ldata.selected_color]}"> <!-- [checkboxPosition]=before -->
+    <mat-list-option value=1
+    [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#CCCCCC' : ldata.colors[ldata.selected_color]}"
+    matTooltip="Spells requiring a saving throw, you can force creatures to succeed. Max creature count = your CHA mod."
+    > <!-- [checkboxPosition]=before -->
       careful
     </mat-list-option>
-    <mat-list-option value=2 [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#CCCCCC' : ldata.colors[ldata.selected_color]}">
+    <mat-list-option value=2
+    [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#CCCCCC' : ldata.colors[ldata.selected_color]}"
+    matTooltip='Spells with range of +5ft, double spell range. Touch spells gain a range of 30ft.'
+    >
       distant
     </mat-list-option>
-    <mat-list-option value=3 [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#CCCCCC' : ldata.colors[ldata.selected_color]}">
+    <mat-list-option value=3
+    [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#CCCCCC' : ldata.colors[ldata.selected_color]}"
+    matTooltip='Spells with duration of 1+ min, double its duration. Max duration of an extended spell is 24hrs.'
+    >
       extendo
     </mat-list-option>
-    <mat-list-option value=4 [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#CCCCCC' : ldata.colors[ldata.selected_color]}">
+    <mat-list-option value=4
+    [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#CCCCCC' : ldata.colors[ldata.selected_color]}"
+    matTooltip='Spells requiring a saving throw, give one target disadvantage on its first save.'
+    >
       heighten
     </mat-list-option>
-    <mat-list-option value=5 [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#CCCCCC' : ldata.colors[ldata.selected_color]}">
+    <mat-list-option value=5
+    [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#CCCCCC' : ldata.colors[ldata.selected_color]}"
+    matTooltip='Spells with casting time of 1 action, change it to a bonus action.'
+    >
       quicken
     </mat-list-option>
-    <mat-list-option value=6 [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#CCCCCC' : ldata.colors[ldata.selected_color]}">
+    <mat-list-option value=6
+    [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#CCCCCC' : ldata.colors[ldata.selected_color]}"
+    matTooltip='Spells cast without somatic or verbal components.'
+    >
       subtle
     </mat-list-option>
-    <mat-list-option value=7 [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#CCCCCC' : ldata.colors[ldata.selected_color]}">
+    <mat-list-option value=7
+    [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#CCCCCC' : ldata.colors[ldata.selected_color]}"
+    matTooltip="Spells that targets a single creature and doesn't have a range of self, target a 2nd creature within range. Cost = spell lvl(or 1 for cantrips)."
+    >
       twin
     </mat-list-option>
-    <mat-list-option value=8 [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#CCCCCC' : ldata.colors[ldata.selected_color]}">
+    <mat-list-option value=8
+    [ngStyle]="{'color':(ldata.colors[ldata.selected_color] === 'black') ? '#CCCCCC' : ldata.colors[ldata.selected_color]}"
+    matTooltip='REEroll damage dice up to your CHA mod. You must use the new rolls.'
+    >
       empower
     </mat-list-option>
   </mat-selection-list>
@@ -176,7 +200,12 @@
 
   <table class='mat-elevation-z4' *ngIf="ldata.selected_class === 'wiz'">
     <tr>
-      <td colspan=2><button mat-raised-button style='width: 10rem;' [style.background-color]="ldata.colors[ldata.selected_color]" [disabled]='!ldata.reee' (click)='ldata.recoveREEE();'>recoveREEE</button></td>
+      <td colspan=2><button mat-raised-button style='width: 10rem;'
+        [style.background-color]="ldata.colors[ldata.selected_color]"
+        [disabled]='!ldata.reee'
+        (click)='ldata.recoveREEE();'
+        matTooltip='Always recovers the maximum possible. Full recharge leftovers are saved'
+        >recoveREEE</button></td>
     </tr>
     <tr>
       <td>{{ldata.reee}} / {{ldata.lvlToPoints[ldata.maxspell]}}</td>
@@ -195,7 +224,11 @@
 
 
 <br>
-<button mat-raised-button [style.background-color]="ldata.colors[ldata.selected_color]" (click)='ldata.calcspellpoints()'>full recovery</button>
+<button mat-raised-button
+[style.background-color]="ldata.colors[ldata.selected_color]"
+(click)='ldata.calcspellpoints()'
+matTooltip='Long rest'
+>full recovery</button>
 <br>
 <br>
 <mat-form-field style='width: 12rem;'><input matInput placeholder='manually ± points' [(ngModel)]='ldata.manualaddsubtract'></mat-form-field><button mat-button (click)='ldata.addsubtractpoints()'><mat-icon>accessible</mat-icon></button>
